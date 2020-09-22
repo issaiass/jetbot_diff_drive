@@ -456,7 +456,7 @@
   <joint name="base_nano_joint" type="fixed">
     <parent link="base_link"/>
     <child link="pcb_boards"/>
-    <origin xyz="0 0 0.035"/>
+    <origin xyz="0 0 0.055"/>
   </joint>
 
 </robot>
