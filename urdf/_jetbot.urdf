@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<robot name="jetbot">
+
+<!-- material (color) -->
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 1 0.2"/>
+  </material> 
+  <material name="grey">
+    <color rgba="0.66 0.66 0.66 1"/>
+  </material>    
+  <material name="soft_blue">
+    <color rgba="0.2157 0.5294 0.9216 1"/>
+  </material>
+  <material name="grey_alpha">
+    <color rgba="0.3 0.3 0.3 0.4"/>
+  </material>   
+  <material name="green">
+    <color rgba="0.1 0.3 0.1 0.8"/>
+  </material>     
+
+<!-- CHASSIS (body) -->
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.013"/>
+      <geometry>
+        <box size="0.134 0.095 0.035"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+
+
+
+<!-- WHEELS -->
+<!-- Left wheel -->
+  <link name="lt_wheel_shaft">
+    <visual>
+      <geometry>
+        <cylinder length="0.015" radius="0.005"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>  -->    
+    </visual>
+  </link> 
+  <joint name="base_lt_wheel_shaft_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lt_wheel_shaft"/>
+    <origin xyz="0.023 0.048 0.013"/>
+  </joint>
+
+  <link name="lt_wheelc">
+    <visual>
+      <origin rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.026"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="lt_shaft_wheelc_joint" type="fixed">
+    <origin xyz="0 0.013 0"/>    
+    <parent link="lt_wheel_shaft"/>
+    <child link="lt_wheelc"/>
+  </joint>
+
+  <link name="lt_wheel">
+    <visual>
+    <origin rpy="1.57079632679 0 0"/>    
+      <geometry>
+        <cylinder length="0.015" radius="0.0325"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="lt_wheelc_wheel_joint" type="continuous">
+    <axis xyz ="0 1 0" />
+    <parent link="lt_wheelc"/>
+    <child link="lt_wheel"/>
+    <origin xyz="0 -0.0001 0"/>  
+  </joint>  
+
+
+<!-- Right Wheel -->
+  <link name="rt_wheel_shaft">
+    <visual>
+      <geometry>
+        <cylinder length="0.015" radius="0.005"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>  -->    
+    </visual>
+  </link> 
+  <joint name="base_rt_wheel_shaft_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rt_wheel_shaft"/>
+    <origin xyz="0.023 -0.048 0.013"/>
+  </joint>
+
+  <link name="rt_wheelc">
+    <visual>
+      <origin rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.026"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="rt_shaft_wheelc_joint" type="fixed">
+    <origin xyz="0 -0.013 0"/>    
+    <parent link="rt_wheel_shaft"/>
+    <child link="rt_wheelc"/>
+  </joint>
+
+  <link name="rt_wheel">
+    <visual>
+    <origin rpy="1.57079632679 0 0"/>    
+      <geometry>
+        <cylinder length="0.015" radius="0.0325"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="rt_wheelc_wheel_joint" type="continuous">
+    <axis xyz ="0 1 0" />
+    <parent link="rt_wheelc"/>
+    <child link="rt_wheel"/>
+    <origin xyz="0 0.0001 0"/>  
+  </joint>  
+
+
+
+<!-- CASTER WHEELS -->
+<!-- Front caster -->
+  <link name="front_caster_base">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.0075"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="base_front_caster_joint" type="fixed">
+    <origin xyz="0.06 0 -0.01"/>  
+    <parent link="base_link"/>
+    <child link="front_caster_base"/>
+  </joint>
+
+  <link name="front_caster_lt_cyl">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.002"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="front_caster_lt_cyl_joint" type="fixed">
+    <origin xyz="0 0.008 0"/>  
+    <parent link="front_caster_base"/>
+    <child link="front_caster_lt_cyl"/>
+  </joint>
+
+  <link name="front_caster_rt_cyl">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.002"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="front_caster_rt_cyl_joint" type="fixed">
+    <origin xyz="0 -0.008 0"/>  
+    <parent link="front_caster_base"/>
+    <child link="front_caster_rt_cyl"/>
+  </joint>
+
+  <link name="front_caster_ball">
+    <visual>
+      <geometry>
+        <sphere radius="0.005" />
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="front_caster_ball_joint" type="continuous">
+    <axis xyz="0 1 0" rpy="0 0 0" />
+    <parent link="front_caster_base"/>
+    <child link="front_caster_ball"/>
+    <origin xyz="0 0 -0.004"/>
+  </joint>
+
+
+
+<!-- Back caster -->
+  <link name="back_caster_base">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.0075"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="base_back_caster_joint" type="fixed">
+    <origin xyz="-0.06 0 -0.01"/>  
+    <parent link="base_link"/>
+    <child link="back_caster_base"/>
+  </joint>
+
+  <link name="back_caster_lt_cyl">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.002"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="back_caster_lt_cyl_joint" type="fixed">
+    <origin xyz="0 0.008 0"/>  
+    <parent link="back_caster_base"/>
+    <child link="back_caster_lt_cyl"/>
+  </joint>
+
+  <link name="back_caster_rt_cyl">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.002"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="back_caster_rt_cyl_joint" type="fixed">
+    <origin xyz="0 -0.008 0"/>  
+    <parent link="back_caster_base"/>
+    <child link="back_caster_rt_cyl"/>
+  </joint>
+
+  <link name="back_caster_ball">
+    <visual>
+      <geometry>
+        <sphere radius="0.005" />
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="back_caster_ball_joint" type="continuous">
+    <axis xyz="0 1 0" rpy="0 0 0" />
+    <parent link="back_caster_base"/>
+    <child link="back_caster_ball"/>
+    <origin xyz="0 0 -0.004"/>
+  </joint>
+
+<!-- ANTENNAS -->
+<!-- Left Antenna -->
+  <link name="lt_antenna">
+    <visual>
+      <origin xyz="0 0 0.095"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.005"/>
+      </geometry>
+      <material name="black"/>      
+    </visual>
+  </link>
+  <joint name="base_lt_antenna_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lt_antenna"/>
+    <origin xyz="-0.062 0.0425 0.0305"/>
+  </joint>
+
+  <link name="lt_antenna_top">
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry> 
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="lt_antenna_top_joint" type="fixed">
+    <origin xyz="0 0 0.19"/>
+    <parent link="lt_antenna"/>
+    <child link="lt_antenna_top"/>
+  </joint>
+
+
+
+
+<!-- Right Antenna -->
+  <link name="rt_antenna">
+    <visual>
+      <origin xyz="0 0 0.095"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.005"/>
+      </geometry>
+      <material name="black"/>      
+    </visual>
+  </link>
+  <joint name="base_rt_antenna_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rt_antenna"/>
+    <origin xyz="-0.062 -0.0425 0.0305"/>
+  </joint>
+
+  <link name="rt_antenna_top">
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry> 
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="rt_antenna_top_joint" type="fixed">
+    <origin xyz="0 0 0.19"/>
+    <parent link="rt_antenna"/>
+    <child link="rt_antenna_top"/>
+  </joint>
+
+
+
+
+<!-- CAMERA -->
+  <link name="camera_mount_base">
+    <visual>
+      <geometry>
+        <box size="0.01 0.04 0.002"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="camera_mount_base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_mount_base"/>
+    <origin rpy="0 0 0" xyz="0.0615 0 0.0315"/>
+  </joint>
+
+  <link name="camera_mount_over">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>
+      <geometry>
+        <box size="0.03 0.04 0.002"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="camera_mount_over_joint" type="fixed">
+    <parent link="camera_mount_base"/>
+    <child link="camera_mount_over"/>
+    <origin xyz="0.004 0 0.016"/>
+  </joint>
+
+  <link name="camera_mount_angled">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>
+      <geometry>
+        <box size="0.025 0.025 0.002"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="camera_mount_angled_joint" type="fixed">
+    <parent link="camera_mount_over"/>
+    <child link="camera_mount_angled"/>
+    <origin rpy="0 0.463647609 0" xyz="0.0055 0 0.025"/>
+  </joint>
+
+  <link name="camera_screen_base">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>    
+      <geometry>
+        <box size="0.025 0.025 0.004"/>
+      </geometry>
+      <material name="soft_blue"/>
+    </visual>
+  </link>
+  <joint name="camera_mount_screen_joint" type="fixed">
+    <parent link="camera_mount_angled"/>
+    <child link="camera_screen_base"/>
+    <origin rpy="0 0 0" xyz="0.0025 0 0"/>    
+  </joint>
+
+  <link name="camera_pcb_base">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>    
+      <geometry>
+        <box size="0.013 0.013 0.004"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera_pcb_base_joint" type="fixed">
+    <parent link="camera_screen_base"/>
+    <child link="camera_pcb_base"/>
+    <origin xyz="0.0025 0 0"/>    
+  </joint>
+
+  <link name="camera_lens_body">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.006"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera_lens_body_joint" type="fixed">
+    <parent link="camera_pcb_base"/>
+    <child link="camera_lens_body"/>
+    <origin xyz="0.007 0 0"/>    
+  </joint>
+
+  <link name="camera_lens_body_out">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>
+      <geometry>
+        <cylinder length="0.003" radius="0.0075"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+ <joint name="camera_lens_body_out_joint" type="fixed">
+    <parent link="camera_lens_body"/>
+    <child link="camera_lens_body_out"/>
+    <origin xyz="0.005 0 0"/>    
+  </joint>
+
+  <link name="camera_lens">
+    <visual>
+      <origin rpy="0 1.57079632679 0"/>
+      <geometry>
+        <sphere radius="0.005" />
+      </geometry>
+      <material name="grey_alpha"/>
+    </visual>
+  </link>
+ <joint name="camera_lens_joint" type="fixed">
+    <parent link="camera_lens_body_out"/>
+    <child link="camera_lens"/>
+    <origin xyz="-0.001 0 0"/>    
+  </joint>
+
+
+<!-- PCB -->
+<!-- Motor Driver and Jetson Nano -->
+  <link name="pcb_boards">
+    <visual>
+      <geometry>
+        <box size="0.105 0.08 0.055"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>  
+  <joint name="base_nano_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="pcb_boards"/>
+    <origin xyz="0 0 0.035"/>
+  </joint>
+
+</robot>
