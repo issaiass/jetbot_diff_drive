@@ -68,10 +68,36 @@
   <xacro:macro name="inertia" params="mass">
     <inertial>
       <mass value="${mass}" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
     </inertial>
   </xacro:macro>
+  <!-- A simple inertial macro -->
 
+  <!-- transmission macro -->
+  <xacro:macro name="tx" params="prefix suffix">
+    <transmission name="${prefix}_${suffix}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${prefix}_${suffix}_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="${prefix}_${suffix}_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>      
+    </transmission>
+  </xacro:macro>
+  <!-- transmission macro -->
+
+  <!-- pid macro -->
+  <!--xacro:macro name="pidctl" params="prefix suffix">
+    <gazebo reference="${prefix}_${suffix}">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>    
+  </xacro:macro-->
+  <!-- pid macro -->
 
   <!-- Wheel Macro-->
   <xacro:macro name="wheel_parts" params="prefix reflect">
@@ -89,7 +115,7 @@
         <cylinder radius="${shaft_r}" length="${shaft_len}" />
       </geometry>
     </collision> 
-    <xacro:inertia mass="1" />
+    <xacro:inertia mass="0.05" />
   </link>
   <joint name="base_${prefix}_wheel_shaft_joint" type="fixed">
     <axis rpy="0 0 0" xyz="0 0 0" />
@@ -112,14 +138,14 @@
         <cylinder length="${wheelc_len}" radius="${wheelc_r}"/>
       </geometry>
     </collision>     
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.1" />    
   </link>
   <joint name="${prefix}_shaft_wheelc_joint" type="fixed">
     <origin xyz="0 ${reflect*(wheelc_r-0.002)/2} 0"/>    
     <parent link="${prefix}_wheel_shaft"/>
     <child link="${prefix}_wheelc"/>
   </joint>
-
+  
   <link name="${prefix}_wheel">
     <visual>
     <origin rpy="${pi/2} 0 0" xyz="0 0 0" />    
@@ -134,16 +160,20 @@
         <cylinder length="${wheelc_len}" radius="${wheelc_r + 0.0065}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.1" />    
   </link>
-  <joint name="${prefix}_wheelc_wheel_joint" type="continuous">
+  <joint name="${prefix}_wheel_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="${prefix}_wheelc"/>
     <child link="${prefix}_wheel"/>
     <origin xyz ="0 ${-0.0001*reflect} 0"/>  
   </joint>
+
+  <!--xacro:pidctl prefix="${prefix}" suffix="wheel"/-->
+  <xacro:tx prefix="${prefix}" suffix="wheel" />  
   </xacro:macro>
   <!-- Wheel Macro-->
+
 
   <!-- Caster Wheel Left and Right Mini Cylinder Macros -->
   <xacro:macro name="caster_minicyl" params="prefix suffix reflect">
@@ -159,7 +189,7 @@
         <cylinder length="${caster_cyl_len}" radius="${caster_cyl_r/3.75}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.05" />    
   </link>
   <joint name="${prefix}_caster_${suffix}_cyl_joint" type="fixed">
     <origin xyz="0 ${reflect*caster_yoffset} 0"/>  
@@ -183,7 +213,7 @@
         <cylinder length="${caster_cyl_len}" radius="${caster_cyl_r}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.05" />    
   </link>
   <joint name="base_${prefix}_caster_joint" type="fixed">
     <origin xyz="${reflect*caster_xoffset} 0 ${caster_zoffset}"/>  
@@ -194,7 +224,7 @@
   <xacro:caster_minicyl prefix="${prefix}" suffix="lt" reflect="1" />
   <xacro:caster_minicyl prefix="${prefix}" suffix="rt" reflect="-1" />
 
-  <link name="${prefix}_caster_ball">
+  <link name="${prefix}_caster">
     <visual>
       <geometry>
         <sphere radius="${caster_ball}" />
@@ -206,14 +236,16 @@
         <sphere radius="${caster_ball}" />
       </geometry>
     </collision>    
-    <xacro:inertia mass="1" />    
-  </link>
-  <joint name="${prefix}_caster_ball_joint" type="continuous">
+    <xacro:inertia mass="0.2" />    
+  </link>  
+  <joint name="${prefix}_caster_joint" type="continuous">
     <axis xyz="1 1 1" rpy="0 0 0" />
     <parent link="${prefix}_caster_base"/>
-    <child link="${prefix}_caster_ball"/>
+    <child link="${prefix}_caster"/>
     <origin xyz="0 0 -0.004"/>
   </joint>
+  <!--xacro:pidctl prefix="${prefix}" suffix="caster"/-->
+  <xacro:tx prefix="${prefix}" suffix="caster" />  
   </xacro:macro>
   <!-- Left and Caster Wheel Macros, Including Mini Cylinders -->
 
@@ -233,7 +265,7 @@
         <cylinder length="${antenna_len}" radius="${antenna_r}"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.2" />    
   </link>
   <joint name="base_${prefix}_antenna_joint" type="fixed">
     <parent link="base_link"/>
@@ -253,7 +285,7 @@
         <sphere radius="${antenna_r}"/>
       </geometry>
     </collision>   
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="0.005" />    
   </link>
   <joint name="${prefix}_antenna_top_joint" type="fixed">
     <origin xyz="0 0 ${antenna_len}"/>
@@ -262,9 +294,6 @@
   </joint>
   </xacro:macro>
   <!-- Left and Right Antenna Macro -->
-
-
-
 
   <!-- CHASSIS (body) -->
   <link name="base_link">
@@ -281,7 +310,7 @@
         <box size="${base_len} ${base_width} ${base_height}"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="20" />    
   </link>
   <!-- CHASSIS (body) -->  
 
@@ -297,8 +326,7 @@
   <xacro:antenna prefix="lt" reflect="1" />
   <!-- RIGHT ANTENNA -->
   <xacro:antenna prefix="rt" reflect="-1" />
-
-
+  
 <!-- CAMERA -->
   <link name="camera_mount_base">
     <visual>
@@ -312,6 +340,7 @@
         <box size="0.01 0.04 0.002"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_mount_base_joint" type="fixed">
     <parent link="base_link"/>
@@ -333,6 +362,7 @@
         <box size="0.03 0.04 0.002"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_mount_over_joint" type="fixed">
     <parent link="camera_mount_base"/>
@@ -354,6 +384,7 @@
         <box size="0.025 0.025 0.002"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_mount_angled_joint" type="fixed">
     <parent link="camera_mount_over"/>
@@ -375,6 +406,7 @@
         <box size="0.025 0.025 0.004"/>
       </geometry>
     </collision>
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_mount_screen_joint" type="fixed">
     <parent link="camera_mount_angled"/>
@@ -396,6 +428,7 @@
         <box size="0.013 0.013 0.004"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_pcb_base_joint" type="fixed">
     <parent link="camera_screen_base"/>
@@ -417,6 +450,7 @@
         <cylinder length="0.01" radius="0.006"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
   <joint name="camera_lens_body_joint" type="fixed">
     <parent link="camera_pcb_base"/>
@@ -438,6 +472,7 @@
         <cylinder length="0.003" radius="0.0075"/>
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
  <joint name="camera_lens_body_out_joint" type="fixed">
     <parent link="camera_lens_body"/>
@@ -459,6 +494,7 @@
         <sphere radius="0.005" />
       </geometry>
     </collision>    
+    <xacro:inertia mass="0.05" />        
   </link>
  <joint name="camera_lens_joint" type="fixed">
     <parent link="camera_lens_body_out"/>
@@ -482,7 +518,7 @@
         <box size="${box_len} ${box_width} ${box_height}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="1" />    
+    <xacro:inertia mass="20" />    
   </link>  
   <joint name="base_nano_joint" type="fixed">
     <parent link="base_link"/>
@@ -490,5 +526,13 @@
     <origin xyz="0 0 ${box_height}"/>
   </joint>
   <!-- PCB, MOTOR DRIVER AND JETSON NANO -->
+
+
+  <!-- Gazebo plugin for ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
 
 </robot>

@@ -1,10 +1,15 @@
+<!-- This file will launch rviz to visualize the URDF or XACRO model -->
+<!-- Note that you must not have error when the rviz load is complete -->
 <launch>
-  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.urdf"/>
+  <!-- arguments for model, rviz and gui -->
+  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro"/>
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
+  <!-- parses the urdf to the robot description in parameter server -->
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 
+  <!-- this will publish the joints and launch rviz -->
   <node if="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
   <node unless="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
