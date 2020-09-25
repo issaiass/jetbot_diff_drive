@@ -1,4 +1,6 @@
-/gazebo_ros_control/pid_gains/back_caster_joint: {p: 100.0, i: 0.01, d: 10.0}
-/gazebo_ros_control/pid_gains/front_caster_joint: {p: 100.0, i: 0.01, d: 10.0}
-/gazebo_ros_control/pid_gains/lt_wheel_joint: {p: 100.0, i: 0.01, d: 10.0}
-/gazebo_ros_control/pid_gains/rt_wheel_joint: {p: 100.0, i: 0.01, d: 10.0}
+gazebo_ros_control:
+  pid_gains:
+     #back_caster_joint: {p: 0.0, i: 0.0, d: 0.0}
+     #front_caster_joint: {p: 0.0, i: 0.0, d: 0.0}
+     lt_wheel_joint: {p: 2.0, i: 0, d: 0} 
+     rt_wheel_joint: {p: 2.0, i: 0, d: 0}

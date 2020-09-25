@@ -6,14 +6,6 @@
   <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro"/>
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
-  <!-- this will include the launch file for gazebo given the model -->  
-  <include file="$(find jetbot_diff_drive)/launch/gazebo.launch">
-    <arg name="model" value="$(arg model)" />
-  </include>
-
-  <!-- this will launch rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
-
   <!-- for the ros controllers configuration in the parameter server -->
   <rosparam command="load"
             file="$(find jetbot_diff_drive)/config/joints.yaml"
@@ -22,6 +14,20 @@
   <rosparam command="load"
             file="$(find jetbot_diff_drive)/config/diff_drive.yaml"
             ns="jetbot_diff_drive_controller" />
+
+  <rosparam command="load"
+            file="$(find jetbot_diff_drive)/config/pid.yaml"
+            ns="/" />
+
+  <!-- this will include the launch file for gazebo given the model -->  
+  <include file="$(find jetbot_diff_drive)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <!-- this will launch rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+
 
   <!-- the control manager has the same namespace as the parameter server to work -->
   <node name="jetbot_controller_spawner" pkg="controller_manager" type="spawner"
