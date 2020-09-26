@@ -74,7 +74,7 @@
   <xacro:macro name="inertia" params="mass">
     <inertial>
       <mass value="${mass}"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.04" ixy="0.0" ixz="0.0" iyy="0.04" iyz="0.0" izz="0.04"/>
     </inertial>
   </xacro:macro>
   <!-- A simple inertial macro -->
@@ -176,7 +176,7 @@
         <cylinder length="${wheelc_len}" radius="${wheelc_r + 0.0065}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />    
+    <xacro:inertia mass="0.6"/>    
   </link>
   <joint name="${prefix}_wheel_joint" type="continuous">
     <axis xyz="0 1 0"/>
@@ -205,7 +205,7 @@
         <cylinder length="${caster_cyl_len}" radius="${caster_cyl_r/3.75}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />    
+    <xacro:cylinder_inertia mass="0.6" r="${caster_cyl_r/3.75}" h="${caster_cyl_len}" />    
   </link>
   <joint name="${prefix}_caster_${suffix}_cyl_joint" type="fixed">
     <origin xyz="0 ${reflect*caster_yoffset} 0"/>  
@@ -229,7 +229,7 @@
         <cylinder length="${caster_cyl_len}" radius="${caster_cyl_r}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />    
+    <xacro:cylinder_inertia mass="0.6" r="${caster_cyl_r}" h="${caster_cyl_len}" />    
   </link>
   <joint name="base_${prefix}_caster_joint" type="fixed">
     <origin xyz="${reflect*caster_xoffset} 0 ${caster_zoffset}"/>  
@@ -252,7 +252,7 @@
         <sphere radius="${caster_ball}" />
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />    
+    <xacro:sphere_inertia mass="0.6" r="${caster_ball}" />    
   </link>  
   <joint name="${prefix}_caster_joint" type="fixed">
   <!--joint name="${prefix}_caster_joint" type="continuous">  
@@ -281,7 +281,7 @@
         <cylinder length="${antenna_len}" radius="${antenna_r}"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />    
+    <xacro:cylinder_inertia mass="0.6" r="${antenna_r}" h="${antenna_len}" />    
   </link>
   <joint name="base_${prefix}_antenna_joint" type="fixed">
     <parent link="base_link"/>
@@ -301,7 +301,7 @@
         <sphere radius="${antenna_r}"/>
       </geometry>
     </collision>   
-    <xacro:inertia mass="0.06" />    
+    <xacro:sphere_inertia mass="0.06" r="${antenna_r}" />    
   </link>
   <joint name="${prefix}_antenna_top_joint" type="fixed">
     <origin xyz="0 0 ${antenna_len}"/>
@@ -329,7 +329,7 @@
         <box size="${base_len} ${base_width} ${base_height}"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />    
+    <xacro:cuboid_inertia mass="0.6" x="${base_len}" y="${base_width}" z="${base_height}" />    
   </link>
   <!-- CHASSIS (body) -->  
 
@@ -363,7 +363,7 @@
         <box size="0.01 0.04 0.002"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />        
+    <xacro:cuboid_inertia mass="0.6" x="0.01" y="0.04" z="0.002" />        
   </link>
   <joint name="camera_mount_base_joint" type="fixed">
     <parent link="base_link"/>
@@ -385,7 +385,7 @@
         <box size="0.03 0.04 0.002"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:cuboid_inertia mass="0.6" x="0.03" y="0.04" z="0.002"/>        
   </link>
   <joint name="camera_mount_over_joint" type="fixed">
     <parent link="camera_mount_base"/>
@@ -407,7 +407,7 @@
         <box size="0.025 0.025 0.002"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:cuboid_inertia mass="0.6" x="0.025" y="0.025" z="0.002" />        
   </link>
   <joint name="camera_mount_angled_joint" type="fixed">
     <parent link="camera_mount_over"/>
@@ -429,7 +429,7 @@
         <box size="0.025 0.025 0.004"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />
+    <xacro:cuboid_inertia mass="0.6" x="0.025" y="0.025" z="0.004" />
   </link>
   <joint name="camera_mount_screen_joint" type="fixed">
     <parent link="camera_mount_angled"/>
@@ -451,7 +451,7 @@
         <box size="0.013 0.013 0.004"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:cuboid_inertia mass="0.6" x="0.013" y="0.013" z="0.004" />        
   </link>
   <joint name="camera_pcb_base_joint" type="fixed">
     <parent link="camera_screen_base"/>
@@ -473,7 +473,7 @@
         <cylinder length="0.01" radius="0.006"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:cylinder_inertia mass="0.6" r="0.006" h="0.01" />        
   </link>
   <joint name="camera_lens_body_joint" type="fixed">
     <parent link="camera_pcb_base"/>
@@ -495,7 +495,7 @@
         <cylinder length="0.003" radius="0.0075"/>
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:cylinder_inertia mass="0.6" r="0.0075" h="0.003"/>        
   </link>
  <joint name="camera_lens_body_out_joint" type="fixed">
     <parent link="camera_lens_body"/>
@@ -517,7 +517,7 @@
         <sphere radius="0.005" />
       </geometry>
     </collision>    
-    <xacro:inertia mass="0.6" />        
+    <xacro:sphere_inertia mass="0.6" r="0.005" />        
   </link>
  <joint name="camera_lens_joint" type="fixed">
     <parent link="camera_lens_body_out"/>
@@ -541,7 +541,7 @@
         <box size="${box_len} ${box_width} ${box_height}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6" />    
+    <xacro:cuboid_inertia mass="0.6" x="${box_len}" y="${box_width}" z="${box_height}" />    
   </link>  
   <joint name="base_nano_joint" type="fixed">
     <parent link="base_link"/>
