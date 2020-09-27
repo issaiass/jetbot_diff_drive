@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Chassis constants -->
+  <xacro:property name="base_len" value="0.134"/>
+  <xacro:property name="base_width" value="0.095"/>
+  <xacro:property name="base_height" value="0.035"/>
+  <xacro:property name="base_z_offset" value="0.013"/>
+  <!-- Chassis constants -->
+
+
+  <!-- CHASSIS (body) -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${base_z_offset}"/>    
+      <geometry>
+        <box size="${base_len} ${base_width} ${base_height}"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${base_z_offset}"/>    
+      <geometry>
+        <box size="${base_len} ${base_width} ${base_height}"/>
+      </geometry>
+    </collision>    
+    <xacro:cuboid_inertia mass="0.6" x="${base_len}" y="${base_width}" z="${base_height}" />    
+  </link>
+  <!-- CHASSIS (body) -->  
+
+</robot>

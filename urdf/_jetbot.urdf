@@ -1,3 +1,8 @@
+<!-- This is a simple view of the jetbot without    -->
+<!-- all the physics.  A more complex and complete  -->
+<!-- example are related to the other files in      -->
+<!-- this folder.                                   -->
+
 <?xml version="1.0"?>
 <robot name="jetbot">
 

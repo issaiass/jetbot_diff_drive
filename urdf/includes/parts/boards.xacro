@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Motor driver and PCB constants -->
+  <xacro:property name="box_len" value="0.105" />
+  <xacro:property name="box_width" value="0.08" />
+  <xacro:property name="box_height" value="0.055" />  
+  <!-- Motor driver and PCB constants -->
+
+  <!-- Inertias Macros -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />
+  <!-- Inertias Macros -->
+
+  <!-- PCB, MOTOR DRIVER AND JETSON NANO -->
+  <link name="pcb_boards">
+    <visual>
+      <geometry>
+        <box size="${box_len} ${box_width} ${box_height}"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${box_len} ${box_width} ${box_height}"/>
+      </geometry>
+    </collision>
+    <xacro:cuboid_inertia mass="0.6" x="${box_len}" y="${box_width}" z="${box_height}" />    
+  </link>  
+  <joint name="base_nano_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="pcb_boards"/>
+    <origin xyz="0 0 ${box_height}"/>
+  </joint>
+  <!-- PCB, MOTOR DRIVER AND JETSON NANO -->
+
+</robot>

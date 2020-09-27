@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Rviz Color Properties -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/materials/materials.xacro" />  
+  <!-- Rviz Color Properties -->  
+
+  <!-- Gazebo Properties -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/jetbot.gazebo" />  
+  <!-- Gazebo Properties -->  
+
+  <!-- Transmission Macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/transmission.xacro" />    
+  <!-- Transmission Macro -->
+
+  <!-- Inertia Macros -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />  
+  <!-- Inertia Macros -->
+  
+  <!-- Antenna Macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/antenna.xacro" />  
+  <!-- Antenna Macro -->
+
+  <!-- Wheel Macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/wheels/wheel.xacro" />  
+  <!-- Wheel Macro -->
+
+  <!-- Caster Wheel Macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/wheels/caster.xacro" />  
+  <!-- Caster Wheel Macro -->
+
+</robot>
