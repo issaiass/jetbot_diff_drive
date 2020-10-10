@@ -67,7 +67,7 @@
   <joint name="camera_mount_angled_joint" type="fixed">
     <parent link="camera_mount_over"/>
     <child link="camera_mount_angled"/>
-    <origin rpy="0 0.463647609 0" xyz="0.0055 0 0.025"/>
+    <origin rpy="0 0.24 0" xyz="0.003 0 0.027"/>
   </joint>
 
   <link name="camera_screen_base">
