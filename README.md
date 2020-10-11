@@ -31,6 +31,7 @@ This applications function as follows.
 <details open>
 <summary> <b>Using Jetbot Differential Drive Package<b></summary>
 
+- Put the *ball* folder from *jetbot_diff_drive/model* folder inside *~/.gazebo/models* folder to load also the soccer ball.
 - See prerequisites on the package.xml, but basically are
   - joint_state_publisher
   - urdf
