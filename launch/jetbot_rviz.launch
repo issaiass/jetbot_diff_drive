@@ -1,8 +1,14 @@
 <!-- This file will launch rviz to visualize the URDF or XACRO model -->
 <!-- Note that you must not have error when the rviz load is complete -->
 <launch>
+  <!-- arguments for the realsense camera to load -->
+  <arg name="pointcloud_enable" default="true" />
+  <arg name="realsense_enable" default="true" /> 
+
   <!-- arguments for model, rviz and gui -->
-  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro"/>
+  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
+                            pointcloud_enable:=$(arg pointcloud_enable) 
+                            realsense_enable:=$(arg realsense_enable)" />
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 

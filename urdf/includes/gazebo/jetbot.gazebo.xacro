@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<robot>
+
+  <!-- Gazebo plugin for ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <!--Gazebo Camera Plugin-->
+  <gazebo reference="camera_lens">
+    <sensor type="camera" name="camera">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>760</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>/jetbot_camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_lens</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>  
+
+  <!-- Hardcoding all the links here for colors -->
+  <!-- Base Link -->
+  <gazebo reference="base_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <!-- Shaft Link -->
+  <gazebo reference="lt_wheel_shaft">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="rt_wheel_shaft">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <!-- Wheels Links -->  
+  <gazebo reference="lt_wheelc">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="rt_wheelc">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="lt_wheel">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="rt_wheel">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Caster Links -->
+  <gazebo reference="front_caster_lt_cyl">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>  
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="front_caster_rt_cyl">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>  
+
+  <gazebo reference="back_caster_lt_cyl">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="back_caster_rt_cyl">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>    
+
+  <gazebo reference="front_caster_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="back_caster_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="front_caster">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="back_caster">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Grey</material>
+  </gazebo>  
+
+
+  <!-- Antenna Links -->
+  <gazebo reference="lt_antenna">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="rt_antenna">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="lt_antenna_top">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="rt_antenna_top">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>  
+
+  <!-- Camera Links -->
+  <gazebo reference="camera_mount_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <gazebo reference="camera_mount_over">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <gazebo reference="camera_mount_angled">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <gazebo reference="camera_screen_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/SkyBlue</material>
+  </gazebo>
+
+  <gazebo reference="camera_pcb_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="camera_lens_body">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="camera_lens_body_out">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="camera_lens">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/GreyTransparent</material>
+  </gazebo>
+
+  <!-- Jetson Nano and Motor Driver Board -->
+  <gazebo reference="pcb_boards">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/GreenTransparent</material>
+  </gazebo>
+  <!-- Hardcoding all the links here for colors -->
+
+</robot>

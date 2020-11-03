@@ -6,7 +6,7 @@
   <!-- Rviz Color Properties -->  
 
   <!-- Gazebo Properties -->
-  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/jetbot.gazebo" />  
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/jetbot.gazebo.xacro" />  
   <!-- Gazebo Properties -->  
 
   <!-- Transmission Macro -->
@@ -16,7 +16,11 @@
   <!-- Inertia Macros -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />  
   <!-- Inertia Macros -->
-  
+
+  <!-- Chassis macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/chassis.xacro" />  
+  <!-- Chassis macro -->
+
   <!-- Antenna Macro -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/antenna.xacro" />  
   <!-- Antenna Macro -->
@@ -28,5 +32,17 @@
   <!-- Caster Wheel Macro -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/wheels/caster.xacro" />  
   <!-- Caster Wheel Macro -->
+
+  <!-- Camera-->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/rgbcam/camera.xacro" />
+  <!-- Camera-->
+
+  <!-- PCB Boards -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/boards.xacro" />  
+  <!-- PCB Boards -->
+
+  <!-- Intel Realsense Macro -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/realsense/_d435.urdf.xacro" />    
+  <!-- Intel Realsense Macro -->
 
 </robot>

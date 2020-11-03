@@ -8,8 +8,8 @@
   <xacro:property name="base_z_offset" value="0.013"/>
   <!-- Chassis constants -->
 
-
   <!-- CHASSIS (body) -->
+  <xacro:macro name="chassis" >
   <link name="base_link">
     <visual>
       <origin xyz="0 0 ${base_z_offset}"/>    
@@ -26,6 +26,7 @@
     </collision>    
     <xacro:cuboid_inertia mass="0.6" x="${base_len}" y="${base_width}" z="${base_height}" />    
   </link>
+  </xacro:macro>
   <!-- CHASSIS (body) -->  
 
 </robot>

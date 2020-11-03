@@ -3,26 +3,29 @@
 <details open>
 <summary> <b>Brief Review<b></summary>
 
-This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.
+This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.
 
 The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.  
 
 Below a few image examples of the outcome.
 
 <p align="center">
-<img src = "imgs/rviz_orbit.PNG?raw=true" width="35%"/>
-<img src = "imgs/gazebo_world.PNG?raw=true" width="49%"/>
+<img src = "doc/imgs/rviz_orbit.PNG?raw=true" width="35%"/>
+<img src = "doc/imgs/gazebo_world.PNG?raw=true" width="49%"/>
+<img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="75%"/>
+<img src = "doc/imgs/jetbot_realsense.PNG?raw=true" width="55%"/>
 </p>
 
 The project tree:
 
 <p align="center">
-<img src = "imgs/tree.PNG?raw=true" width="45%"/>
+<img src = "doc/imgs/tree.PNG?raw=true" width="45%"/>
 </p>
 
 This applications function as follows.
 - Launches rviz in a default configuration
 - Launches gazebo with the ros control plugin for motors and the camera plugin
+- This application also loads an intl realsense D435 if is enabled
 - Launches the rqt_robot_steering for give the linear and angular velocity commands
 - After everything launches you could control with the interactive rqt plugin 
 
@@ -56,24 +59,35 @@ This applications function as follows.
     cd ~/catkin_ws/src
     git clone https://github.com/issaiass/jetbot_diff_drive
     rm -rf README.md
-    rm -rf imgs
-    rm -rf videos
+    rm -rf doc/
 ~~~
 - Go to the root folder `~/catkin_ws` and make the folder running `catkin_make` to ensure the application compiles.
 - Finally launch the application by:
 ~~~
-    # for gazebo, rviz and rqt controller
-    roslaunch jetbot_diff_drive jetbot_gazebo.launch
-    # or for rviz only
+    # for gazebo only and rqt controller
+    # (including Intel Realsense D435 depth camera)
+    roslaunch jetbot_diff_drive jetbot_gazebo.launch 
+    # (excluding Intel Realsense D435 depth camera)
+    roslaunch jetbot_diff_drive jetbot_gazebo.launch realsense_enable:=falase     
+    # or for rviz only and the controller
+    # (including Intel Realsense D435 depth camera)
     roslaunch jetbot_diff_drive jetbot_rviz.launch
+    # (excluding Intel Realsense D435 depth camera)
+    roslaunch jetbot_diff_drive jetbot_rviz.launch realsense_enable:=false    
+    # or for rviz and gazebo complete simulation
+    # (including Intel Realsense D435 depth camera)
+    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch
+    # (excluding Intel Realsense D435 depth camera)
+    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch realsense_enable:=false
 ~~~
 - You must see that `roscore` and all configurations loading succesfully.
-- When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz
+- When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz and also with the intel D435 camera in front (if you enabled it, by default is enabled and also the point cloud).
 
 <p align="center">
-<img src = "imgs/rviz_camera.PNG?raw=true" width="55%"/>
+<img src = "doc/imgs/jetbot_rviz_realsense.PNG?raw=true" width="55%"/>
+<img src = "doc/imgs/jetbot_rviz_pointcloud.PNG?raw=true" width="55%"/>
+<img src = "doc/imgs/rviz_camera.PNG?raw=true" width="55%"/>
 </p>
-
 
 <details open>
 <summary> <b>Results<b></summary>
@@ -81,6 +95,12 @@ This applications function as follows.
 You could see the results on this youtube video.  
 
 <p align="center">
+
+Last video update:
+
+[<img src= "https://img.youtube.com/vi/gretCaS2RlM/0.jpg" />](https://youtu.be/gretCaS2RlM)
+
+Previous videos:
 
 [<img src= "https://img.youtube.com/vi/_K5SHJLf5_0/0.jpg" />](https://youtu.be/_K5SHJLf5_0)
 </p>
@@ -95,6 +115,12 @@ The video only shows the application running, not the explanation of the code.
 I will try my best for making an explanatory video of the application as in this youtube video.
 
 <p align="center">
+
+Las video Update:
+
+[<img src= "https://img.youtube.com/vi/hpUCG6K5muI/0.jpg" />](https://youtu.be/hpUCG6K5muI)
+
+Previous videos:
 
 [<img src= "https://img.youtube.com/vi/G1z9DSnRhpI/0.jpg" />](https://youtu.be/G1z9DSnRhpI)
 

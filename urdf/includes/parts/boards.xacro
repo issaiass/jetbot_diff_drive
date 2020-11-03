@@ -12,6 +12,7 @@
   <!-- Inertias Macros -->
 
   <!-- PCB, MOTOR DRIVER AND JETSON NANO -->
+  <xacro:macro name="pcb">
   <link name="pcb_boards">
     <visual>
       <geometry>
@@ -25,12 +26,13 @@
       </geometry>
     </collision>
     <xacro:cuboid_inertia mass="0.6" x="${box_len}" y="${box_width}" z="${box_height}" />    
-  </link>  
+  </link>
   <joint name="base_nano_joint" type="fixed">
     <parent link="base_link"/>
     <child link="pcb_boards"/>
     <origin xyz="0 0 ${box_height}"/>
   </joint>
+  </xacro:macro>  
   <!-- PCB, MOTOR DRIVER AND JETSON NANO -->
 
 </robot>

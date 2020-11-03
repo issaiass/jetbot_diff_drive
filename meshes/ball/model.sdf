@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<sdf version="1.5">
+  <model name="soccerball">
+    <pose>0 0 0.5 0 0 0</pose>
+    <static>false</static>
+    <link name="link">
+      <inertial>
+        <pose>0 0 0.02 0 0 0</pose>      
+        <mass>0.5</mass>
+        <inertia> <!-- inertias are tricky to compute -->
+          <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+          <ixx>000069212</ixx>       <!-- for a sphere: i = 2/5 * m * r2 -->
+          <ixy>0.0</ixy>         
+          <ixz>0.0</ixz>         
+          <iyy>000069212</iyy>   
+          <iyz>0.0</iyz>         
+          <izz>000069212</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <pose>0 0 0 0 0 0</pose>      
+        <geometry>
+          <mesh>
+            <uri>model://ball/meshes/soccer_ball.dae</uri>
+          </mesh>
+          <scale>0.05 0.05 0.05</scale>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>10000000.0</kp>
+              <kd>1.0</kd>
+              <min_depth>0.001</min_depth>
+              <max_vel>0.1</max_vel>
+            </ode>
+          </contact>
+        </surface>        
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://ball/meshes/soccer_ball.dae</uri>
+          </mesh>
+          <scale>0.05 0.05 0.05</scale>          
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

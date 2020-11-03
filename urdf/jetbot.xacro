@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetbot">
+  
+  <!-- Xacro arguments for nominal use -->
+  <xacro:arg name="realsense_enable" default="true" />
+  <xacro:arg name="pointcloud_enable" default="true" />
 
   <!-- All Neccesary Header Files, Macros and Constants -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes.xacro" />  
   <!-- All Neccesary Header FIles, Macros and Constants -->  
 
   <!-- CHASSIS -->
-  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/chassis.xacro" />  
+  <xacro:chassis />
   <!-- LEFT WHEEL -->
   <xacro:wheel_parts prefix="lt" reflect="1" />
   <!-- RIGHT WHEEL -->    
@@ -19,9 +23,16 @@
   <xacro:antenna prefix="lt" reflect="1" />
   <!-- RIGHT ANTENNA -->
   <xacro:antenna prefix="rt" reflect="-1" />
-  <!-- CAMERA -->
-  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/camera.xacro" />  
+  <!-- SENSORS -->
+  <!-- MONOCULAR CAMERA -->
+  <xacro:camera />
+  <!-- REALSENSE CAMERA -->
+  <xacro:if value="$(arg realsense_enable)">
+    <xacro:sensor_d435 name="realsense_d435" topics_ns="realsense_d435" parent="base_link" publish_pointcloud="$(arg pointcloud_enable)" >
+      <origin xyz="0.077 0 0" rpy="0 0 0" />
+    </xacro:sensor_d435>
+  </xacro:if>
   <!-- BOARDS -->
-  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/boards.xacro" />  
+  <xacro:pcb />
 
 </robot>

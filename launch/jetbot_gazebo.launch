@@ -1,43 +1,42 @@
-<!-- This will launch gazebo and rviz -->
-<!-- A quick note!, when you launch this file you will se errors on rviz -->
-<!-- and that's perfectly normal :D -->
 <launch>
-  <!-- arguments for the urdf xacro file, rviz visualization and namespace -->
-  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro"/>
-  <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
-  <!-- for the ros controllers configuration in the parameter server -->
-  <rosparam command="load"
-            file="$(find jetbot_diff_drive)/config/joints.yaml"
-            ns="jetbot_joint_state_controller" />
-            
-  <rosparam command="load"
-            file="$(find jetbot_diff_drive)/config/diff_drive.yaml"
-            ns="jetbot_diff_drive_controller" />
+  <!-- Arguments for intel realsense -->
+  <arg name="pointcloud_enable" default="true" />
+  <arg name="realsense_enable" default="true" />
 
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
+                            pointcloud_enable:=$(arg pointcloud_enable) 
+                            realsense_enable:=$(arg realsense_enable)" />
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="world_name" value="$(find jetbot_diff_drive)/world/jetbot.world"/>    
+  </include>
+
+  <!-- This will be usefull if you want to use this launch file stand alone to prevent -->
+  <!-- the p error message when loading the file                                       -->
   <rosparam command="load"
             file="$(find jetbot_diff_drive)/config/pid.yaml"
             ns="/" />
 
-  <!-- this will include the launch file for gazebo given the model -->  
-  <include file="$(find jetbot_diff_drive)/launch/gazebo.launch">
-    <arg name="model" value="$(arg model)" />
-  </include>
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 
-  <!-- this will launch rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
 
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
 
-
-  <!-- the control manager has the same namespace as the parameter server to work -->
-  <node name="jetbot_controller_spawner" pkg="controller_manager" type="spawner"
-    args="jetbot_joint_state_controller
-          jetbot_diff_drive_controller "/>
-
-  <node name="jetbot_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
-    <param name="default_topic" value="/jetbot_diff_drive_controller/cmd_vel"/>
-  </node>    
-    
-    
-    
 </launch>
