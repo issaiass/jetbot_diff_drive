@@ -6,10 +6,16 @@
   <arg name="pointcloud_enable" default="true" />
   <arg name="realsense_enable" default="true" /> 
 
+  <!-- for rplidar laser to appear/dissapear and publish/not publish ray -->
+  <arg name="lidar_enable" default="true" />
+  <arg name="visualize_laser" default="true" /> 
+
   <!-- arguments for the urdf xacro file, rviz visualization and namespace -->
   <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
                             pointcloud_enable:=$(arg pointcloud_enable) 
-                            realsense_enable:=$(arg realsense_enable)" />
+                            realsense_enable:=$(arg realsense_enable)
+                            lidar_enable:=$(arg lidar_enable)
+                            visualize_laser:=$(arg visualize_laser)" />
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
   <!-- for the ros controllers configuration in the parameter server -->

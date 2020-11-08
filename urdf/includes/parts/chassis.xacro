@@ -10,6 +10,7 @@
 
   <!-- CHASSIS (body) -->
   <xacro:macro name="chassis" >
+  <link name="odom" />
   <link name="base_link">
     <visual>
       <origin xyz="0 0 ${base_z_offset}"/>    
@@ -26,7 +27,15 @@
     </collision>    
     <xacro:cuboid_inertia mass="0.6" x="${base_len}" y="${base_width}" z="${base_height}" />    
   </link>
+
+  <!-- Joint to connect base_footprint with base_link -->
+  <joint name="odom_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="odom"/>
+    <child link="base_link" />
+  </joint>  
   </xacro:macro>
+
   <!-- CHASSIS (body) -->  
 
 </robot>

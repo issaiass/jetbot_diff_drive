@@ -4,6 +4,10 @@
   <arg name="pointcloud_enable" default="true" />
   <arg name="realsense_enable" default="true" />
 
+  <!-- Arguments for RPLidar -->
+  <arg name="lidar_enable" default="true" />
+  <arg name="visualize_laser" default="true" /> 
+
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
@@ -12,7 +16,9 @@
   <arg name="debug" default="false"/>
   <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
                             pointcloud_enable:=$(arg pointcloud_enable) 
-                            realsense_enable:=$(arg realsense_enable)" />
+                            realsense_enable:=$(arg realsense_enable)
+                            lidar_enable:=$(arg lidar_enable)
+                            visualize_laser:=$(arg visualize_laser)" />
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="debug" value="$(arg debug)" />

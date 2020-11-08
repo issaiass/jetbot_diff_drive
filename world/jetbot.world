@@ -13,7 +13,7 @@
     <include>
   	<static>false</static>
 	  <name>soccer_ball</name>
-      <pose>-1.5 0 0 0 0 0</pose>
+      <pose>-1.0 0 0 0 0 0</pose>
       <uri>model://ball</uri>
     </include>
 
@@ -72,8 +72,13 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>0.265056 -0.025646 0 0 -0 0</pose>
+      <pose>1.0 0 0 0 0 0</pose>
     </model>
+
+
+
+
+
   </world>
 
 </sdf>

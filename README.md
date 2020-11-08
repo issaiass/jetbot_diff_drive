@@ -3,7 +3,7 @@
 <details open>
 <summary> <b>Brief Review<b></summary>
 
-This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.
+This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.  Also, you could see the RPLidar for the laser scan.
 
 The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.  
 
@@ -14,6 +14,7 @@ Below a few image examples of the outcome.
 <img src = "doc/imgs/gazebo_world.PNG?raw=true" width="49%"/>
 <img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="75%"/>
 <img src = "doc/imgs/jetbot_realsense.PNG?raw=true" width="55%"/>
+<img src = "doc/imgs/jetbot_rplidar_rviz.PNG?raw=true" width="55%" />
 </p>
 
 The project tree:
@@ -25,7 +26,8 @@ The project tree:
 This applications function as follows.
 - Launches rviz in a default configuration
 - Launches gazebo with the ros control plugin for motors and the camera plugin
-- This application also loads an intl realsense D435 if is enabled
+- This application also loads an intel realsense D435 if is enabled
+- Also we load the rplidar and laser scan if it is enabled
 - Launches the rqt_robot_steering for give the linear and angular velocity commands
 - After everything launches you could control with the interactive rqt plugin 
 
@@ -58,32 +60,35 @@ This applications function as follows.
 ~~~ 
     cd ~/catkin_ws/src
     git clone https://github.com/issaiass/jetbot_diff_drive
+    cd jetbot_diff_drive
     rm -rf README.md
     rm -rf doc/
+    cd ..
 ~~~
 - Go to the root folder `~/catkin_ws` and make the folder running `catkin_make` to ensure the application compiles.
 - Finally launch the application by:
 ~~~
     # for gazebo only and rqt controller
-    # (including Intel Realsense D435 depth camera)
+    # (including Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_gazebo.launch 
-    # (excluding Intel Realsense D435 depth camera)
-    roslaunch jetbot_diff_drive jetbot_gazebo.launch realsense_enable:=falase     
+    # (excluding Intel Realsense D435 depth camera and RPLidar)
+    roslaunch jetbot_diff_drive jetbot_gazebo.launch realsense_enable:=false lidar_enable:=false
     # or for rviz only and the controller
-    # (including Intel Realsense D435 depth camera)
+    # (including Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_rviz.launch
-    # (excluding Intel Realsense D435 depth camera)
-    roslaunch jetbot_diff_drive jetbot_rviz.launch realsense_enable:=false    
+    # (excluding Intel Realsense D435 depth camera and RPLidar)
+    roslaunch jetbot_diff_drive jetbot_rviz.launch realsense_enable:=false lidar_enable:=false
     # or for rviz and gazebo complete simulation
-    # (including Intel Realsense D435 depth camera)
+    # (including Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch
-    # (excluding Intel Realsense D435 depth camera)
-    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch realsense_enable:=false
+    # (excluding Intel Realsense D435 depth camera and RPLidar)
+    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch realsense_enable:=false lidar_enable:=false
 ~~~
 - You must see that `roscore` and all configurations loading succesfully.
-- When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz and also with the intel D435 camera in front (if you enabled it, by default is enabled and also the point cloud).
+- When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz and also with the intel D435 camera in front (if you enabled it, by default is enabled and also the point cloud).  Also you will see the RPLidar too over the boards.
 
 <p align="center">
+<img src = "doc/imgs/jetbot_realsense_rplidar.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_rviz_realsense.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_rviz_pointcloud.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/rviz_camera.PNG?raw=true" width="55%"/>
@@ -98,9 +103,11 @@ You could see the results on this youtube video.
 
 Last video update:
 
-[<img src= "https://img.youtube.com/vi/gretCaS2RlM/0.jpg" />](https://youtu.be/gretCaS2RlM)
+[<img src= "https://img.youtube.com/vi/7OaHnLxGrJw/0.jpg" />](https://youtu.be/7OaHnLxGrJw)
 
 Previous videos:
+
+[<img src= "https://img.youtube.com/vi/gretCaS2RlM/0.jpg" />](https://youtu.be/gretCaS2RlM)
 
 [<img src= "https://img.youtube.com/vi/_K5SHJLf5_0/0.jpg" />](https://youtu.be/_K5SHJLf5_0)
 </p>
@@ -118,9 +125,12 @@ I will try my best for making an explanatory video of the application as in this
 
 Las video Update:
 
-[<img src= "https://img.youtube.com/vi/MblT-803o7M/0.jpg" />](https://youtu.be/MblT-803o7M)
+[<img src= "https://img.youtube.com/vi/NMVvKM-G-gk/0.jpg" />](https://youtu.be/NMVvKM-G-gk)
 
 Previous videos:
+
+[<img src= "https://img.youtube.com/vi/MblT-803o7M/0.jpg" />](https://youtu.be/MblT-803o7M)
+
 
 [<img src= "https://img.youtube.com/vi/G1z9DSnRhpI/0.jpg" />](https://youtu.be/G1z9DSnRhpI)
 

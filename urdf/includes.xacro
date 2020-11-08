@@ -45,4 +45,8 @@
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/realsense/_d435.urdf.xacro" />    
   <!-- Intel Realsense Macro -->
 
+  <!-- RPLidar -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/laser/laser.urdf.xacro" />    
+  <!-- RPLidar -->
+
 </robot>

@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetbot">
   
-  <!-- Xacro arguments for nominal use -->
+  <!-- Xacro arguments for depth camera use -->
   <xacro:arg name="realsense_enable" default="true" />
   <xacro:arg name="pointcloud_enable" default="true" />
+
+  <!-- Xacro arguments for depth lidar use -->
+  <xacro:arg name="lidar_enable" default="true" />
+  <xacro:arg name="visualize_laser" default="true" />  
 
   <!-- All Neccesary Header Files, Macros and Constants -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes.xacro" />  
@@ -26,13 +30,21 @@
   <!-- SENSORS -->
   <!-- MONOCULAR CAMERA -->
   <xacro:camera />
+  <!-- BOARDS -->
+  <xacro:pcb />
+
   <!-- REALSENSE CAMERA -->
   <xacro:if value="$(arg realsense_enable)">
     <xacro:sensor_d435 name="realsense_d435" topics_ns="realsense_d435" parent="base_link" publish_pointcloud="$(arg pointcloud_enable)" >
       <origin xyz="0.077 0 0" rpy="0 0 0" />
     </xacro:sensor_d435>
   </xacro:if>
-  <!-- BOARDS -->
-  <xacro:pcb />
+
+  <!-- RPLIDAR LASER -->
+  <xacro:if value="$(arg lidar_enable)" >
+    <xacro:sensor_rplidar name="rplidar" topic_ns="rplidar" parent="pcb_boards" visualize_laser="$(arg visualize_laser)" >
+      <origin xyz="0 0 0.058" rpy="0 0 0" />
+    </xacro:sensor_rplidar >
+  </xacro:if>
 
 </robot>

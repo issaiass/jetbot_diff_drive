@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/laser.gazebo.xacro"/>
+
+  <!-- LASER (RPLidar) -->
+  <xacro:macro name="sensor_rplidar" params="name topic_ns:=rplidar parent *origin visualize_laser:=true">
+
+    <joint name="scan_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_base_scan"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${name}_base_scan">
+      <visual>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://jetbot_diff_drive/meshes/laser/lds.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="dark"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0.015 0 -0.0065" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.0315" radius="0.055"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="0.114" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0"
+                 izz="0.001" />
+      </inertial>
+    </link>
+
+    <!-- RPLidar Plugin -->
+    <xacro:gazebo_rplidar lidar_name="${name}" reference_link="${name}_base_scan" topic_ns="${topic_ns}" visualize_laser="${visualize_laser}" />
+  </xacro:macro>
+</robot>

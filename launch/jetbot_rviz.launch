@@ -5,10 +5,16 @@
   <arg name="pointcloud_enable" default="true" />
   <arg name="realsense_enable" default="true" /> 
 
+  <!-- arguments for lidar use -->
+  <arg name="lidar_enable" default="true" />
+  <arg name="visualize_laser" default="true" /> 
+
   <!-- arguments for model, rviz and gui -->
   <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
                             pointcloud_enable:=$(arg pointcloud_enable) 
-                            realsense_enable:=$(arg realsense_enable)" />
+                            realsense_enable:=$(arg realsense_enable)
+                            lidar_enable:=$(arg lidar_enable)
+                            publish_laser:=$(arg visualize_laser)" />
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
