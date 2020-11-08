@@ -3,7 +3,11 @@
 <details open>
 <summary> <b>Brief Review<b></summary>
 
-This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.  Also, you could see the RPLidar for the laser scan.
+This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  
+
+Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.  Also, you could see the RPLidar for the laser scan.
+
+NOTE:  For the realsense you will need to make the plugin first that is included in https://github.com/issaiass/realsense_gazebo_plugin
 
 The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.  
 
@@ -60,9 +64,7 @@ This applications function as follows.
 ~~~ 
     cd ~/catkin_ws/src
     git clone https://github.com/issaiass/jetbot_diff_drive
-    cd jetbot_diff_drive
-    rm -rf README.md
-    rm -rf doc/
+    git clone https://github.com/issaiass/realsense_gazebo_plugin
     cd ..
 ~~~
 - Go to the root folder `~/catkin_ws` and make the folder running `catkin_make` to ensure the application compiles.
