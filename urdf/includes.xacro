@@ -49,4 +49,16 @@
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/laser/laser.urdf.xacro" />    
   <!-- RPLidar -->
 
+  <!-- Sonar -->
+  <!--xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/sonar/hcsr04.urdf.xacro" /-->  
+  <!-- Sonar -->  
+
+  <!-- IMU -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/imu/bno055.urdf.xacro" />
+  <!-- IMU -->
+
+  <!-- GPS -->
+  <!--xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/parts/sensors/gps/gps_mtk3339.urdf.xacro" /-->  
+  <!-- GPS -->
+
 </robot>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- BNO055 Constants -->
+  <xacro:property name="bno_depth" value="0.00254" />
+  <xacro:property name="bno_width" value="0.0254" />
+  <xacro:property name="bno_height" value="0.02032" />
+  <xacro:property name="bno_mass" value="0.003" />    
+  <!-- BNO055 constants -->
+
+  <!-- Inertias Macros -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />
+  <!-- Inertias Macros -->
+
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/imu.gazebo.xacro" />
+
+  <!-- IMU BNO055 -->
+  <xacro:macro name="sensor_imu" params="name topic_ns:=bno055 parent *origin">
+
+    <joint name="imu_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_base"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${name}_base">
+      <visual>
+        <origin xyz="-${bno_width/2} ${bno_height/2} -${bno_depth/2}" rpy="${pi/2} 0 0"/>
+        <geometry>
+          <mesh filename="package://jetbot_diff_drive/meshes/imu/bno055.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${bno_width} ${bno_height} ${bno_depth}"/>
+        </geometry>
+      </collision>
+      <xacro:cuboid_inertia mass="${bno_mass}" x="${bno_width}" y="${bno_height}" z="${bno_depth}" />
+    </link>
+    <!-- IMU Plugin -->
+    <xacro:gazebo_imu imu_name="${name}" topic_ns="${topic_ns}" />
+  </xacro:macro>
+</robot>

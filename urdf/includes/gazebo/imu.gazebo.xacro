@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="gazebo_imu" params="imu_name topic_ns" >
+    <!-- Gazebo plugin for Laser Scan (RPLidar) -->
+      <gazebo> 
+        <plugin name="${imu_name}_plugin" filename="libhector_gazebo_ros_imu.so"> 
+          <alwaysOn>true</alwaysOn> 
+          <bodyName>${imu_name}_base</bodyName> 
+          <topicName>${topic_ns}</topicName> 
+          <serviceName>${topic_ns}_service</serviceName> 
+          <gaussianNoise>0.0</gaussianNoise> 
+          <updateRate>20.0</updateRate> 
+        </plugin> 
+      </gazebo> 
+  </xacro:macro>
+</robot>

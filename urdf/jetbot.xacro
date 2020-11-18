@@ -47,4 +47,11 @@
     </xacro:sensor_rplidar >
   </xacro:if>
 
+  <!-- RPLIDAR LASER -->
+  <xacro:if value="$(arg imu_enable)" >
+    <xacro:sensor_imu name="bno055_imu" topic_ns="bno055_imu" parent="pcb_boards" >
+      <origin xyz="0 0 0.0275" rpy="0 0 0" />
+    </xacro:sensor_imu>
+  </xacro:if>
+
 </robot>

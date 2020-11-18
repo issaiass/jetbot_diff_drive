@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot>
 
+  <material name="yellow">
+    <color rgba="1 1 0 1"/>
+  </material>
   <material name="black">
     <color rgba="0 0 0 1"/>
   </material>

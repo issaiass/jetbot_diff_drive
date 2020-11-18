@@ -8,37 +8,6 @@
     </plugin>
   </gazebo>
 
-  <!-- Gazebo Plugin for IMU -->
-  <!--gazebo>
-    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
-      <alwaysOn>true</alwaysOn>
-      <bodyName>imu_link</bodyName>
-      <frameName>imu_link</frameName>
-      <topicName>imu</topicName>
-      <serviceName>imu_service</serviceName>
-      <gaussianNoise>0.0</gaussianNoise>
-      <updateRate>200</updateRate>
-      <imu>
-        <noise>
-          <type>gaussian</type>
-          <rate>
-            <mean>0.0</mean>
-            <stddev>2e-4</stddev>
-            <bias_mean>0.0000075</bias_mean>
-            <bias_stddev>0.0000008</bias_stddev>
-          </rate>
-          <accel>
-            <mean>0.0</mean>
-            <stddev>1.7e-2</stddev>
-            <bias_mean>0.1</bias_mean>
-            <bias_stddev>0.001</bias_stddev>
-          </accel>
-        </noise>
-      </imu>
-    </plugin>
-  </gazebo-->
-
-
   <!--Gazebo Camera Plugin-->
   <gazebo reference="camera_lens">
     <sensor type="camera" name="camera">
@@ -81,6 +50,19 @@
   </gazebo>  
 
   <!-- Hardcoding all the links here for colors -->
+  <gazebo reference="odom">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>  
+  </gazebo>
+
+  <!-- Base Footprint Link -->
+  <gazebo reference="base_footprint">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>  
+  </gazebo>
+
   <!-- Base Link -->
   <gazebo reference="base_link">
     <mu1>0.2</mu1>
@@ -256,6 +238,14 @@
     <mu2>0.2</mu2>
     <material>Gazebo/GreenTransparent</material>
   </gazebo>
+
+  <gazebo reference="bno055_base">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+
   <!-- Hardcoding all the links here for colors -->
 
 </robot>
