@@ -4,7 +4,9 @@
   <!-- Motor driver and PCB constants -->
   <xacro:property name="box_len" value="0.105" />
   <xacro:property name="box_width" value="0.08" />
-  <xacro:property name="box_height" value="0.055" />  
+  <xacro:property name="box_height" value="0.055" /> 
+  <xacro:property name="box_mass" value="0.3645" /> 
+  <!--xacro:property name="box_mass" value="0.6" /--> 
   <!-- Motor driver and PCB constants -->
 
   <!-- Inertias Macros -->
@@ -25,7 +27,7 @@
         <box size="${box_len} ${box_width} ${box_height}"/>
       </geometry>
     </collision>
-    <xacro:cuboid_inertia mass="0.6" x="${box_len}" y="${box_width}" z="${box_height}" />    
+    <xacro:cuboid_inertia mass="${box_mass}" x="${box_len}" y="${box_width}" z="${box_height}" />    
   </link>
   <joint name="base_nano_joint" type="fixed">
     <parent link="base_link"/>

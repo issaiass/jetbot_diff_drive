@@ -11,6 +11,12 @@
   <!-- Arguments for IMU -->
   <arg name="imu_enable" default="true" />
 
+  <!-- Arguments for GPS -->
+  <arg name="gps_enable" default="true" />
+
+  <!-- Arguments for sonars -->
+  <arg name="ultrasonic_enable" default="true" />
+
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
@@ -22,7 +28,9 @@
                             realsense_enable:=$(arg realsense_enable)
                             lidar_enable:=$(arg lidar_enable)
                             visualize_laser:=$(arg visualize_laser)
-                            imu_enable:=$(arg imu_enable)" />
+                            imu_enable:=$(arg imu_enable)
+                            gps_enable:=$(arg gps_enable)
+                            ultrasonic_enable:=$(arg ultrasonic_enable)" />
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="debug" value="$(arg debug)" />
@@ -30,7 +38,7 @@
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="headless" value="$(arg headless)"/>
-    <arg name="world_name" value="$(find jetbot_diff_drive)/world/jetbot.world"/>    
+    <arg name="world_name" value="$(find jetbot_diff_drive)/world/willow_garage.world"/>    
   </include>
 
   <!-- This will be usefull if you want to use this launch file stand alone to prevent -->
@@ -44,7 +52,7 @@
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
         args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
-
+  <remap from="odom" to="fake_tf"/>
   <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="30.0" />
   </node>

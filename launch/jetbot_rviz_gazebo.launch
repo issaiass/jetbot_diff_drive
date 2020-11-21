@@ -13,13 +13,21 @@
   <!-- for imu to appear/dissapear -->
   <arg name="imu_enable" default="true" />
 
+  <!-- for gps to appear/dissapear -->
+  <arg name="gps_enable" default="true" />
+
+  <!-- for ultrasonic to appear/dissapear -->
+  <arg name="ultrasonic_enable" default="true" />
+
   <!-- arguments for the urdf xacro file, rviz visualization and namespace -->
   <arg name="model" default="$(find jetbot_diff_drive)/urdf/jetbot.xacro
                             pointcloud_enable:=$(arg pointcloud_enable) 
                             realsense_enable:=$(arg realsense_enable)
                             lidar_enable:=$(arg lidar_enable)
                             visualize_laser:=$(arg visualize_laser)
-                            imu_enable:=$(arg imu_enable)" />
+                            imu_enable:=$(arg imu_enable)
+                            gps_enable:=$(arg gps_enable)
+                            ultrasonic_enable:=$(arg ultrasonic_enable)" />
   <arg name="rvizconfig" default="$(find jetbot_diff_drive)/rviz/jetbot.rviz" />
 
   <!-- for the ros controllers configuration in the parameter server -->

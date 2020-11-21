@@ -5,8 +5,21 @@
 <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />  
 <!-- Inertias Macros -->  
 
+<xacro:property name="camera_mount_base_mass" value="0.01" />
+<xacro:property name="camera_mount_over_mass" value="0.005" />
+<xacro:property name="camera_mount_angled_mass" value="0.0034" />
+<xacro:property name="camera_screen_base_mass" value="0.0017" />
+<xacro:property name="camera_pcb_base" value="0.00376" />
+<xacro:property name="camera_lens_body" value="0.000089" />
+<xacro:property name="camera_lens_body_out" value="0.0049" />
+<xacro:property name="camera_lens" value="0.000009" />
+
+<!--xacro:property name="camera_pcb_base" value="0.6" />
+<xacro:property name="camera_lens_body" value="0.6" />
+<xacro:property name="camera_lens_body_out" value="0.6" />
+<xacro:property name="camera_lens" value="0.6" /-->
+
 <!-- CAMERA -->
- <xacro:macro name="camera" >
   <link name="camera_mount_base">
     <visual>
       <geometry>
@@ -19,7 +32,7 @@
         <box size="0.01 0.04 0.002"/>
       </geometry>
     </collision>
-    <xacro:cuboid_inertia mass="0.009" x="0.01" y="0.04" z="0.002" />        
+    <xacro:cuboid_inertia mass="${camera_mount_base_mass}" x="0.01" y="0.04" z="0.002" />        
   </link>
   <joint name="camera_mount_base_joint" type="fixed">
     <parent link="base_link"/>
@@ -41,7 +54,7 @@
         <box size="0.03 0.04 0.002"/>
       </geometry>
     </collision>    
-    <xacro:cuboid_inertia mass="0.009" x="0.03" y="0.04" z="0.002"/>        
+    <xacro:cuboid_inertia mass="${camera_mount_over_mass}" x="0.03" y="0.04" z="0.002"/>        
   </link>
   <joint name="camera_mount_over_joint" type="fixed">
     <parent link="camera_mount_base"/>
@@ -63,12 +76,12 @@
         <box size="0.025 0.025 0.002"/>
       </geometry>
     </collision>    
-    <xacro:cuboid_inertia mass="0.009" x="0.025" y="0.025" z="0.002" />        
+    <xacro:cuboid_inertia mass="${camera_mount_angled_mass}" x="0.025" y="0.025" z="0.002" />        
   </link>
   <joint name="camera_mount_angled_joint" type="fixed">
     <parent link="camera_mount_over"/>
     <child link="camera_mount_angled"/>
-    <origin rpy="0 0.24 0" xyz="0.003 0 0.027"/>
+    <origin rpy="0 0.463647609 0" xyz="0.0055 0 0.025"/>
   </joint>
 
   <link name="camera_screen_base">
@@ -85,7 +98,7 @@
         <box size="0.025 0.025 0.004"/>
       </geometry>
     </collision>
-    <xacro:cuboid_inertia mass="0.009" x="0.025" y="0.025" z="0.004" />
+    <xacro:cuboid_inertia mass="${camera_screen_base_mass}" x="0.025" y="0.025" z="0.004" />
   </link>
   <joint name="camera_mount_screen_joint" type="fixed">
     <parent link="camera_mount_angled"/>
@@ -107,7 +120,7 @@
         <box size="0.013 0.013 0.004"/>
       </geometry>
     </collision>    
-    <xacro:cuboid_inertia mass="0.009" x="0.013" y="0.013" z="0.004" />        
+    <xacro:cuboid_inertia mass="${camera_pcb_base_mass}" x="0.013" y="0.013" z="0.004" />        
   </link>
   <joint name="camera_pcb_base_joint" type="fixed">
     <parent link="camera_screen_base"/>
@@ -129,7 +142,7 @@
         <cylinder length="0.01" radius="0.006"/>
       </geometry>
     </collision>    
-    <xacro:cylinder_inertia mass="0.022" r="0.006" h="0.01" />        
+    <xacro:cylinder_inertia mass="${camera_lens_body_mass}" r="0.006" h="0.01" />        
   </link>
   <joint name="camera_lens_body_joint" type="fixed">
     <parent link="camera_pcb_base"/>
@@ -151,7 +164,7 @@
         <cylinder length="0.003" radius="0.0075"/>
       </geometry>
     </collision>    
-    <xacro:cylinder_inertia mass="0.009" r="0.0075" h="0.003"/>        
+    <xacro:cylinder_inertia mass="${camera_lens_body_out_mass}" r="0.0075" h="0.003"/>        
   </link>
  <joint name="camera_lens_body_out_joint" type="fixed">
     <parent link="camera_lens_body"/>
@@ -173,12 +186,12 @@
         <sphere radius="0.005" />
       </geometry>
     </collision>    
-    <xacro:sphere_inertia mass="0.006" r="0.005" />        
+    <xacro:sphere_inertia mass="${camera_lens_mass}" r="0.005" />        
   </link>
  <joint name="camera_lens_joint" type="fixed">
     <parent link="camera_lens_body_out"/>
     <child link="camera_lens"/>
     <origin xyz="-0.001 0 0"/>    
   </joint>
-  </xacro:macro>
+
 </robot>

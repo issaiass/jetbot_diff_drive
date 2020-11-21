@@ -49,202 +49,198 @@
     </sensor>
   </gazebo>  
 
+
+   <gazebo>
+    <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+      <rpyOffsets>0 0 0</rpyOffsets>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <frameName>base_footprint</frameName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <topicName>gazebo_robot_pose</topicName>
+      <bodyName>base_link</bodyName>
+      <updateRate>50.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+ 
+
   <!-- Hardcoding all the links here for colors -->
   <gazebo reference="odom">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>  
   </gazebo>
 
   <!-- Base Footprint Link -->
   <gazebo reference="base_footprint">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>  
   </gazebo>
 
   <!-- Base Link -->
   <gazebo reference="base_link">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/BlueTransparent</material>
   </gazebo>
 
   <!-- Shaft Link -->
   <gazebo reference="lt_wheel_shaft">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="rt_wheel_shaft">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
     <material>Gazebo/White</material>
   </gazebo>
 
   <!-- Wheels Links -->  
   <gazebo reference="lt_wheelc">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="rt_wheelc">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="lt_wheel">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
+    <mu1>1.16</mu1>
+    <mu2>1.16</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="rt_wheel">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
+    <mu1>1.16</mu1>
+    <mu2>1.16</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <!-- Caster Links -->
   <gazebo reference="front_caster_lt_cyl">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>  
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="front_caster_rt_cyl">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>
   </gazebo>  
 
   <gazebo reference="back_caster_lt_cyl">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="back_caster_rt_cyl">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>
   </gazebo>    
 
   <gazebo reference="front_caster_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="back_caster_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="front_caster">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
 
   <gazebo reference="back_caster">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>  
 
 
   <!-- Antenna Links -->
   <gazebo reference="lt_antenna">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="rt_antenna">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="lt_antenna_top">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="rt_antenna_top">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>  
 
   <!-- Camera Links -->
   <gazebo reference="camera_mount_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/BlueTransparent</material>
   </gazebo>
 
   <gazebo reference="camera_mount_over">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/BlueTransparent</material>
   </gazebo>
 
   <gazebo reference="camera_mount_angled">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/BlueTransparent</material>
   </gazebo>
 
   <gazebo reference="camera_screen_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/SkyBlue</material>
   </gazebo>
 
   <gazebo reference="camera_pcb_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="camera_lens_body">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="camera_lens_body_out">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="camera_lens">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/GreyTransparent</material>
   </gazebo>
 
   <!-- Jetson Nano and Motor Driver Board -->
   <gazebo reference="pcb_boards">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/GreenTransparent</material>
   </gazebo>
 
   <gazebo reference="bno055_base">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
     <material>Gazebo/Yellow</material>
   </gazebo>
 
+  <gazebo reference="mtk3339_link">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo reference="back_rt45_sonar_8_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+  <gazebo reference="back_sonar_7_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+  <gazebo reference="back_lt45_sonar_6_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+    <gazebo reference="back_lt_sonar_5_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+    <gazebo reference="front_lt45_sonar_4_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+    <gazebo reference="front_sonar_3_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+    <gazebo reference="front_rt45_sonar_2_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+    <gazebo reference="back_rt_sonar_1_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
 
   <!-- Hardcoding all the links here for colors -->
 

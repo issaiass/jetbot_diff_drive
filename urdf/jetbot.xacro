@@ -9,6 +9,15 @@
   <xacro:arg name="lidar_enable" default="true" />
   <xacro:arg name="visualize_laser" default="true" />  
 
+  <!-- Xacro arguments for imu -->
+  <xacro:arg name="imu_enable" default="true" />
+
+  <!-- Xacro arguments for gps -->
+  <xacro:arg name="gps_enable" default="true" />
+
+  <!-- Xacro arguments for ultrasonic -->
+  <xacro:arg name="ultrasonic_enable" default="true" />
+
   <!-- All Neccesary Header Files, Macros and Constants -->
   <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes.xacro" />  
   <!-- All Neccesary Header FIles, Macros and Constants -->  
@@ -47,11 +56,53 @@
     </xacro:sensor_rplidar >
   </xacro:if>
 
-  <!-- RPLIDAR LASER -->
+  <!-- IMU -->
   <xacro:if value="$(arg imu_enable)" >
-    <xacro:sensor_imu name="bno055_imu" topic_ns="bno055_imu" parent="pcb_boards" >
+    <xacro:sensor_imu name="bno055" topic_ns="bno_imu" parent="pcb_boards" >
       <origin xyz="0 0 0.0275" rpy="0 0 0" />
     </xacro:sensor_imu>
+  </xacro:if>
+
+  <!-- GPS -->
+  <xacro:if value="$(arg gps_enable)" >
+    <xacro:sensor_gps name="mtk3339" topic_ns="mtk_gps" parent="bno055_base" >
+      <origin xyz="-0.044 0 0" rpy="0 0 0" />
+    </xacro:sensor_gps>
+  </xacro:if>
+
+  <!-- Ultrasonic Sensors -->
+  <xacro:if value="$(arg ultrasonic_enable)" >
+    <xacro:sensor_sonar name="sonar_1" topic_ns="sonar_back_rt" prefix="back_rt" parent="base_link" >
+      <origin xyz="-${base_len/3.5} -${base_width/2} ${base_height/2}" rpy="0 0 -${pi/2}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_2" topic_ns="sonar_front_rt45" prefix="front_rt45" parent="base_link" >
+      <origin xyz="${base_len/2} -${base_width/2} ${base_height+(base_z_offset)/2}" rpy="0 0 -${pi/4}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_3" topic_ns="sonar_front" prefix="front" parent="camera_mount_over" >
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_4" topic_ns="sonar_front_lt45" prefix="front_lt45" parent="base_link" >
+      <origin xyz="${base_len/2} ${base_width/2} ${base_height+(base_z_offset)/2}" rpy="0 0 ${pi/4}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_5" topic_ns="sonar_back_lt" prefix="back_lt" parent="base_link" >
+      <origin xyz="-${base_len/3.5} ${base_width/2} ${base_height/2}" rpy="0 0 ${pi/2}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_6" topic_ns="sonar_back_lt45" prefix="back_lt45" parent="base_link" >
+      <origin xyz="-${base_len/2} ${base_width/2} ${base_height+(base_z_offset)/2}" rpy="0 0 ${pi/2 + pi/4}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_7" topic_ns="sonar_back" prefix="back" parent="base_link" >
+      <origin xyz="-${base_len/2} 0 ${base_height/2}" rpy="0 0 ${pi}" />
+    </xacro:sensor_sonar>
+
+    <xacro:sensor_sonar name="sonar_8" topic_ns="sonar_back_rt45" prefix="back_rt45" parent="base_link" >
+      <origin xyz="-${base_len/2} -${base_width/2} ${base_height+(base_z_offset)/2}" rpy="0 0 -${pi/2 + pi/4}" />
+    </xacro:sensor_sonar>
   </xacro:if>
 
 </robot>

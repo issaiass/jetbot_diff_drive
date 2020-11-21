@@ -5,15 +5,28 @@
 
 This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  
 
-Now i included a intel realsense D435 camera and the point clouds plugin and you can disable/enable the D435 and point clouds if you wish.  Also, you could see the RPLidar for the laser scan.
+Several sensors are included in the simulation like:
+- 1 x RGB Camera
+- 1 x Intel Realsense Depth Camera D435
+- 1 x RPLIdar Laser Scan
+- 8 x Sonar
+- 1 x GPS
+- 1 x IMU
+- 1 x Odometry (see issues at the end of the document)
 
-NOTE:  For the realsense you will need to make the plugin first that is included in https://github.com/issaiass/realsense_gazebo_plugin
+All sensors excluding the camera could be enabled or disabled visually.
+
+NOTE:  
+- For the realsense you will need to make the plugin first that is included [here](https://github.com/issaiass/realsense_gazebo_plugin)
+- For the IMU, GPS, Odometry and sonar you will need folder hector_gazebo_plugins from [here](https://github.com/tu-darmstadt-ros-pkg/hector_gazebo/tree/kinetic-devel/hector_gazebo_plugins) or [here](https://github.com/issaiass/hector_gazebo_plugins)
+- Several dependencies will be needed, see the package description.
 
 The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.  
 
 Below a few image examples of the outcome.
 
 <p align="center">
+<img src = "doc/imgs/jetbot_collage.PNG?raw=true" width="45%"/>
 <img src = "doc/imgs/rviz_orbit.PNG?raw=true" width="35%"/>
 <img src = "doc/imgs/gazebo_world.PNG?raw=true" width="49%"/>
 <img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="75%"/>
@@ -24,16 +37,16 @@ Below a few image examples of the outcome.
 The project tree:
 
 <p align="center">
-<img src = "doc/imgs/tree.PNG?raw=true" width="45%"/>
+<img src = "doc/imgs/tree.PNG?raw=true" width="65%"/>
 </p>
 
 This applications function as follows.
 - Launches rviz in a default configuration
-- Launches gazebo with the ros control plugin for motors and the camera plugin
-- This application also loads an intel realsense D435 if is enabled
-- Also we load the rplidar and laser scan if it is enabled
+- Launches gazebo with the ros control plugin for motors and all other sensors plugins as default
+- By default all sensors are enabled visually and always enabled by its plugin
+- Sensor list includes lidar, realsense, gps, imu, odometry (pose) and sonar
 - Launches the rqt_robot_steering for give the linear and angular velocity commands
-- After everything launches you could control with the interactive rqt plugin 
+- After everything launches you could control the robots with the interactive rqt plugin 
 
 </details>
 
@@ -45,6 +58,8 @@ This applications function as follows.
   - joint_state_publisher
   - urdf
   - rviz 
+  - roscpp
+  - gazebo_ros and others
 - Create a ROS ros workspace and compile an empty package:
 ~~~
     cd ~
@@ -65,31 +80,35 @@ This applications function as follows.
     cd ~/catkin_ws/src
     git clone https://github.com/issaiass/jetbot_diff_drive
     git clone https://github.com/issaiass/realsense_gazebo_plugin
+    git clone https://github.com/issaiass/hector_gazebo_plugins
     cd ..
 ~~~
 - Go to the root folder `~/catkin_ws` and make the folder running `catkin_make` to ensure the application compiles.
 - Finally launch the application by:
 ~~~
     # for gazebo only and rqt controller
-    # (including Intel Realsense D435 depth camera and RPLidar)
+    # (including all sensors)
     roslaunch jetbot_diff_drive jetbot_gazebo.launch 
     # (excluding Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_gazebo.launch realsense_enable:=false lidar_enable:=false
     # or for rviz only and the controller
-    # (including Intel Realsense D435 depth camera and RPLidar)
+    # (including all sensors)
     roslaunch jetbot_diff_drive jetbot_rviz.launch
     # (excluding Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_rviz.launch realsense_enable:=false lidar_enable:=false
     # or for rviz and gazebo complete simulation
-    # (including Intel Realsense D435 depth camera and RPLidar)
+    # (including all sensors)
     roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch
     # (excluding Intel Realsense D435 depth camera and RPLidar)
     roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch realsense_enable:=false lidar_enable:=false
 ~~~
+- Examples above are suposing you want to enable the realsense, but you could enable/disable any sensor.
 - You must see that `roscore` and all configurations loading succesfully.
 - When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz and also with the intel D435 camera in front (if you enabled it, by default is enabled and also the point cloud).  Also you will see the RPLidar too over the boards.
 
 <p align="center">
+<img src = "doc/imgs/jetbot_sonar.PNG?raw=true" width="55%"/>
+<img src = "doc/imgs/jetbot_willow_garage.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_realsense_rplidar.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_rviz_realsense.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_rviz_pointcloud.PNG?raw=true" width="55%"/>
@@ -103,15 +122,23 @@ You could see the results on this youtube video.
 
 <p align="center">
 
-Last video update:
+Last video update - Sonar Plugin:
 
-[<img src= "https://img.youtube.com/vi/7OaHnLxGrJw/0.jpg" />](https://youtu.be/7OaHnLxGrJw)
+[<img src= "https://img.youtube.com/vi/sNLS_3OvJwk/0.jpg" />](https://youtu.be/sNLS_3OvJwk)
 
-Previous videos:
+Previous videos list:
 
-[<img src= "https://img.youtube.com/vi/gretCaS2RlM/0.jpg" />](https://youtu.be/gretCaS2RlM)
+[Sonar Plugin](https://youtu.be/i4P4bskNwc0)
 
-[<img src= "https://img.youtube.com/vi/_K5SHJLf5_0/0.jpg" />](https://youtu.be/_K5SHJLf5_0)
+[GPS Plugin](https://youtu.be/VDtVK-NQxZk)
+
+[IMU Plugin](https://youtu.be/iZQGH5_-pRo)
+
+[RPLidar](https://youtu.be/7OaHnLxGrJw)
+
+[Realsense and PLC Demo in gazebo and rviz](https://youtu.be/gretCaS2RlM)
+
+[ROS Controllers and Camera Plugin in gazebo and rviz](https://youtu.be/_K5SHJLf5_0)
 </p>
 
 The video only shows the application running, not the explanation of the code.
@@ -125,16 +152,25 @@ I will try my best for making an explanatory video of the application as in this
 
 <p align="center">
 
-Las video Update:
+Las video Update - Sonar Plugin:
 
-[<img src= "https://img.youtube.com/vi/NMVvKM-G-gk/0.jpg" />](https://youtu.be/NMVvKM-G-gk)
+[<img src= "https://img.youtube.com/vi/_WPTCEUSzjw/0.jpg" />](https://youtu.be/_WPTCEUSzjw)
 
-Previous videos:
+Previous videos list:
 
-[<img src= "https://img.youtube.com/vi/MblT-803o7M/0.jpg" />](https://youtu.be/MblT-803o7M)
+[Explaining Sonar Plugin](https://youtu.be/_ZegRN1EfLw)
 
+[Explaining GPS Plugin](https://youtu.be/Y7Y2SQk2QoQ)
 
-[<img src= "https://img.youtube.com/vi/G1z9DSnRhpI/0.jpg" />](https://youtu.be/G1z9DSnRhpI)
+[Explaing IMU Plugin](https://youtu.be/Fr5B8pX5c78)
+
+[Explaining how to solve Model Sinking, not moving or drifting](https://youtu.be/1bnEdQzf8Yw)
+
+[Explaining RPLidar](https://youtu.be/NMVvKM-G-gk)
+
+[Explanation Realsense and PCL in gazebo and rviz](https://youtu.be/MblT-803o7M)
+
+[Explanation ROS COntrollers and Camera Plugin in gazebo and rviz](https://youtu.be/G1z9DSnRhpI)
 
 </p>
 
@@ -143,7 +179,7 @@ Previous videos:
 <details open>
 <summary> <b>Issues<b></summary>
 
-- Not an issue but you must know.  The PID was inserted via .yaml because i was not able to insert it on the URDF. 
+- For some reason odometry plugin by p3d of libhector always read (in my case) *frame id* and *child* as *odom* the next plan is to make a simple node package to get the transformation between the *base_link* and *base_footprint* to get the transform and publish in a topic.
 
 </details>
 
@@ -151,10 +187,10 @@ Previous videos:
 <summary> <b>Future Work<b></summary>
 
 Planning to add to this project:
-- Probably i will add effort controllers
-- Navigation capabilities
-- Computer Vision capabilities
-- OpenVINO as an inference engine for future deep learning based projects
+- :x: Probably i will add effort controllers
+- :x: Navigation capabilities
+- :heavy_check_mark: Computer Vision capabilities
+- :x: OpenVINO as an inference engine for future deep learning based projects
 
 </details>
 

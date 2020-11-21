@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- MTK3339 Constants -->
+  <xacro:property name="sonar_depth" value="0.01454" />
+  <xacro:property name="sonar_width" value="0.0457" />
+  <xacro:property name="sonar_height" value="0.0213" />
+  <xacro:property name="sonar_mass" value="0.020" />    
+  <!-- MTK3339 constants -->
+
+  <!-- Inertias Macros -->
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/inertias.xacro" />
+  <!-- Inertias Macros -->
+
+  <xacro:include filename="$(find jetbot_diff_drive)/urdf/includes/gazebo/sonar.gazebo.xacro" />
+
+
+  <xacro:macro name="sensor_sonar" params="name:=hcsr04 topic_ns:=sonar_1 prefix parent *origin">
+  
+  <!-- Sonar HCSR04 -->
+    <joint name="${prefix}_${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}_${name}_link"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <link name="${prefix}_${name}_link">
+      <visual>
+        <origin xyz="0 -${sonar_width/2} -${sonar_height/2}" rpy="${pi/2} 0 ${pi/2}"/>
+        <geometry>
+          <mesh filename="package://jetbot_diff_drive/meshes/sonar/hcsr04.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="purple"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${sonar_depth/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${sonar_width} ${sonar_height} ${sonar_depth}"/>
+        </geometry>
+      </collision>
+      <xacro:cuboid_inertia mass="${sonar_mass}" x="${sonar_width}" y="${sonar_height}" z="${sonar_depth}" />
+    </link>
+    <!-- Sonar Plugin -->
+    <xacro:gazebo_sonar name="${prefix}_${name}" 
+                        reference_link="${prefix}_${name}_link" 
+                        topic_ns="${name}"
+                        update_rate="10" 
+                        min_range="0.3" 
+                        max_range="1.5" 
+                        field_of_view="50" 
+                        ray_count="2" />    
+    <!-- Sonar Plugin -->
+
+  </xacro:macro>
+
+</robot>

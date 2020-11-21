@@ -31,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Camera
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -87,47 +87,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_lens:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_lens_body:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_lens_body_out:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_mount_angled:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_mount_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_mount_over:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_pcb_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_screen_base:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -152,16 +116,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        lt_antenna:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lt_antenna_top:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         lt_wheel:
           Alpha: 1
           Show Axes: false
@@ -181,68 +135,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        pcb_boards:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_d435_bottom_screw_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_color_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_color_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_left_ir_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_left_ir_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_d435_right_ir_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435_right_ir_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        rplidar_base_scan:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rt_antenna:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rt_antenna_top:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         rt_wheel:
           Alpha: 1
           Show Axes: false
@@ -269,86 +161,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        back_caster:
-          Value: true
-        back_caster_base:
-          Value: true
-        back_caster_lt_cyl:
-          Value: true
-        back_caster_rt_cyl:
-          Value: true
-        base_link:
-          Value: true
-        camera_lens:
-          Value: true
-        camera_lens_body:
-          Value: true
-        camera_lens_body_out:
-          Value: true
-        camera_mount_angled:
-          Value: true
-        camera_mount_base:
-          Value: true
-        camera_mount_over:
-          Value: true
-        camera_pcb_base:
-          Value: true
-        camera_screen_base:
-          Value: true
-        front_caster:
-          Value: true
-        front_caster_base:
-          Value: true
-        front_caster_lt_cyl:
-          Value: true
-        front_caster_rt_cyl:
-          Value: true
-        lt_antenna:
-          Value: true
-        lt_antenna_top:
-          Value: true
-        lt_wheel:
-          Value: true
-        lt_wheel_shaft:
-          Value: true
-        lt_wheelc:
-          Value: true
-        odom:
-          Value: true
-        pcb_boards:
-          Value: true
-        realsense_d435_bottom_screw_frame:
-          Value: true
-        realsense_d435_color_frame:
-          Value: true
-        realsense_d435_color_optical_frame:
-          Value: true
-        realsense_d435_depth_frame:
-          Value: true
-        realsense_d435_depth_optical_frame:
-          Value: true
-        realsense_d435_left_ir_frame:
-          Value: true
-        realsense_d435_left_ir_optical_frame:
-          Value: true
-        realsense_d435_link:
-          Value: true
-        realsense_d435_right_ir_frame:
-          Value: true
-        realsense_d435_right_ir_optical_frame:
-          Value: true
-        rplidar_base_scan:
-          Value: true
-        rt_antenna:
-          Value: true
-        rt_antenna_top:
-          Value: true
-        rt_wheel:
-          Value: true
-        rt_wheel_shaft:
-          Value: true
-        rt_wheelc:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 0.20000000298023224
       Name: TF
@@ -356,62 +168,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_link:
-            back_caster_base:
-              back_caster:
-                {}
-              back_caster_lt_cyl:
-                {}
-              back_caster_rt_cyl:
-                {}
-            camera_mount_base:
-              camera_mount_over:
-                camera_mount_angled:
-                  camera_screen_base:
-                    camera_pcb_base:
-                      camera_lens_body:
-                        camera_lens_body_out:
-                          camera_lens:
-                            {}
-            front_caster_base:
-              front_caster:
-                {}
-              front_caster_lt_cyl:
-                {}
-              front_caster_rt_cyl:
-                {}
-            lt_antenna:
-              lt_antenna_top:
-                {}
-            lt_wheel_shaft:
-              lt_wheelc:
-                lt_wheel:
-                  {}
-            pcb_boards:
-              rplidar_base_scan:
-                {}
-            realsense_d435_bottom_screw_frame:
-              realsense_d435_link:
-                realsense_d435_depth_frame:
-                  realsense_d435_color_frame:
-                    realsense_d435_color_optical_frame:
-                      {}
-                  realsense_d435_depth_optical_frame:
-                    {}
-                  realsense_d435_left_ir_frame:
-                    realsense_d435_left_ir_optical_frame:
-                      {}
-                  realsense_d435_right_ir_frame:
-                    realsense_d435_right_ir_optical_frame:
-                      {}
-            rt_antenna:
-              rt_antenna_top:
-                {}
-            rt_wheel_shaft:
-              rt_wheelc:
-                rt_wheel:
-                  {}
+        {}
       Update Interval: 0
       Value: true
     - Class: rviz/Camera
@@ -435,8 +192,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 0.15853901207447052
-        Min Value: -0.012881060130894184
+        Max Value: 1.0973626375198364
+        Min Value: -0.012924500741064548
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -496,7 +253,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -528,9 +285,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.8793034553527832
+        Y: -0.821120023727417
+        Z: -1.2030848264694214
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

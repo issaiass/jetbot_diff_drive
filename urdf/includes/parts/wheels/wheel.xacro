@@ -8,6 +8,14 @@
   <xacro:property name="shaft_yoffset" value="0.048" />  
   <xacro:property name="wheelc_len" value="0.015" />
   <xacro:property name="wheelc_r" value = "0.026" />
+  <xacro:property name="wheel_shaft_mass" value = "0.0028" />
+  <xacro:property name="wheelc_mass" value = "0.0272" />
+  <xacro:property name="wheel_mass" value = "0.0181" />
+
+  <!--xacro:property name="wheel_shaft_mass" value="0.6" />  
+  <xacro:property name="wheelc_mass" value="0.6" />
+  <xacro:property name="wheel_mass" value="0.6" /-->
+
   <!-- Wheel constants -->
 
   <!-- Inertia Macro -->
@@ -30,7 +38,7 @@
         <cylinder radius="${shaft_r}" length="${shaft_len}" />
       </geometry>
     </collision> 
-    <xacro:inertia mass="0.6" />
+    <xacro:cylinder_inertia mass="${wheel_shaft_mass}" r="${shaft_r}" h="${shaft_len}"/>
   </link>
   <joint name="base_${prefix}_wheel_shaft_joint" type="fixed">
     <axis rpy="0 0 0" xyz="0 0 0" />
@@ -53,7 +61,8 @@
         <cylinder length="${wheelc_len}" radius="${wheelc_r}"/>
       </geometry>
     </collision> 
-    <xacro:inertia mass="0.6" />     
+    <xacro:inertia mass="0.6" />
+    <!--xacro:cylinder_inertia mass="${wheelc_mass}" r="${wheelc_r}" h="${wheelc_len}" /-->
   </link>
   <joint name="${prefix}_shaft_wheelc_joint" type="fixed">
     <origin xyz="0 ${reflect*(wheelc_r-0.002)/2} 0"/>    
@@ -75,7 +84,8 @@
         <cylinder length="${wheelc_len}" radius="${wheelc_r + 0.0065}"/>
       </geometry>
     </collision>
-    <xacro:inertia mass="0.6"/>    
+    <xacro:inertia mass="0.6"/>
+    <!--xacro:cylinder_inertia mass="${wheel_mass}" r="${wheelc_r + 0.0065}" h="${wheelc_len}" /-->   
   </link>
   <joint name="${prefix}_wheel_joint" type="continuous">
     <axis xyz="0 1 0"/>
