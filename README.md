@@ -122,7 +122,7 @@ You could see the results on this youtube video.
 
 <p align="center">
 
-Last video update - Sonar Plugin:
+Last video update - Odometry Plugin:
 
 [<img src= "https://img.youtube.com/vi/sNLS_3OvJwk/0.jpg" />](https://youtu.be/sNLS_3OvJwk)
 
@@ -152,7 +152,7 @@ I will try my best for making an explanatory video of the application as in this
 
 <p align="center">
 
-Las video Update - Sonar Plugin:
+Las video Update - Odometry Plugin:
 
 [<img src= "https://img.youtube.com/vi/_WPTCEUSzjw/0.jpg" />](https://youtu.be/_WPTCEUSzjw)
 
