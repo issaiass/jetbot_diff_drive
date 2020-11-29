@@ -1,0 +1,30 @@
+[submodule "jetbot_control"]
+	path = jetbot_control
+	url = https://github.com/issaiass/jetbot_control.git
+[submodule "jetbot_description"]
+	path = jetbot_description
+	url = https://github.com/issaiass/jetbot_description.git
+[submodule "jetbot_desktop"]
+	path = jetbot_desktop
+	url = https://github.com/issaiass/jetbot_desktop.git
+[submodule "jetbot_gazebo"]
+	path = jetbot_gazebo
+	url = https://github.com/issaiass/jetbot_gazebo.git
+[submodule "jetbot_navigation"]
+	path = jetbot_navigation
+	url = https://github.com/issaiass/jetbot_navigation.git
+[submodule "jetbot_robot"]
+	path = jetbot_robot
+	url = https://github.com/issaiass/jetbot_robot.git
+[submodule "jetbot_simulator"]
+	path = jetbot_simulator
+	url = https://github.com/issaiass/jetbot_simulator.git
+[submodule "jetbot_twist_keyboard"]
+	path = jetbot_twist_keyboard
+	url = https://github.com/issaiass/jetbot_twist_keyboard.git
+[submodule "jetbot_twist_viz"]
+	path = jetbot_twist_viz
+	url = https://github.com/issaiass/jetbot_viz.git
+[submodule "jetbot_viz"]
+	path = jetbot_viz
+	url = https://github.com/issaiass/jetbot_viz.git
