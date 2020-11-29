@@ -1,9 +1,15 @@
 # Jetbot_Diff_Drive
 
+
+For the previous version files, download this repo and inside the folder do ***git checkout cd8f47e*** 
+
+
 <details open>
 <summary> <b>Brief Review<b></summary>
 
-This project includes all necessary files to load an URDF xacro model in rviz and gazebo to visualize the camera and control the differential drive robot.  
+This project includes all necessary files reproduce a simulation of the waveshare Jetbot AI Kit model in rviz and gazebo to visualize the camera, control and navigate the differential drive robot.
+
+I based the structure of this repository using [husky](https://github.com/husky/husky) and [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) repos. 
 
 Several sensors are included in the simulation like:
 - 1 x RGB Camera
@@ -19,19 +25,17 @@ All sensors excluding the camera could be enabled or disabled visually.
 NOTE:  
 - For the realsense you will need to make the plugin first that is included [here](https://github.com/issaiass/realsense_gazebo_plugin)
 - For the IMU, GPS, Odometry and sonar you will need folder hector_gazebo_plugins from [here](https://github.com/tu-darmstadt-ros-pkg/hector_gazebo/tree/kinetic-devel/hector_gazebo_plugins) or [here](https://github.com/issaiass/hector_gazebo_plugins)
-- Several dependencies will be needed, see the package description.
+- Several dependencies will be needed, see the *package.xml* dependencies of each one.
 
 The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.  
 
 Below a few image examples of the outcome.
 
 <p align="center">
+<img src = "doc/imgs/navigation.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_collage.PNG?raw=true" width="45%"/>
 <img src = "doc/imgs/rviz_orbit.PNG?raw=true" width="35%"/>
-<img src = "doc/imgs/gazebo_world.PNG?raw=true" width="49%"/>
 <img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="75%"/>
-<img src = "doc/imgs/jetbot_realsense.PNG?raw=true" width="55%"/>
-<img src = "doc/imgs/jetbot_rplidar_rviz.PNG?raw=true" width="55%" />
 </p>
 
 The project tree:
@@ -40,26 +44,17 @@ The project tree:
 <img src = "doc/imgs/tree.PNG?raw=true" width="65%"/>
 </p>
 
-This applications function as follows.
-- Launches rviz in a default configuration
-- Launches gazebo with the ros control plugin for motors and all other sensors plugins as default
-- By default all sensors are enabled visually and always enabled by its plugin
-- Sensor list includes lidar, realsense, gps, imu, odometry (pose) and sonar
-- Launches the rqt_robot_steering for give the linear and angular velocity commands
-- After everything launches you could control the robots with the interactive rqt plugin 
+The project is now divided in several folders and now you can easily excecute effectively each file.
 
 </details>
 
 <details open>
 <summary> <b>Using Jetbot Differential Drive Package<b></summary>
 
+NOTE:  By default, all sensors are visually enabled.
+
 - Put the *ball* folder from *jetbot_diff_drive/model* folder inside *~/.gazebo/models* folder to load also the soccer ball.
-- See prerequisites on the package.xml, but basically are
-  - joint_state_publisher
-  - urdf
-  - rviz 
-  - roscpp
-  - gazebo_ros and others
+- See prerequisites on the *package.xml* of each package.
 - Create a ROS ros workspace and compile an empty package:
 ~~~
     cd ~
@@ -84,27 +79,55 @@ This applications function as follows.
     cd ..
 ~~~
 - Go to the root folder `~/catkin_ws` and make the folder running `catkin_make` to ensure the application compiles.
-- Finally launch the application by:
+- Now you can test in several ways the packages
+- For just only the robot description
 ~~~
-    # for gazebo only and rqt controller
-    # (including all sensors)
-    roslaunch jetbot_diff_drive jetbot_gazebo.launch 
-    # (excluding Intel Realsense D435 depth camera and RPLidar)
-    roslaunch jetbot_diff_drive jetbot_gazebo.launch realsense_enable:=false lidar_enable:=false
-    # or for rviz only and the controller
-    # (including all sensors)
-    roslaunch jetbot_diff_drive jetbot_rviz.launch
-    # (excluding Intel Realsense D435 depth camera and RPLidar)
-    roslaunch jetbot_diff_drive jetbot_rviz.launch realsense_enable:=false lidar_enable:=false
-    # or for rviz and gazebo complete simulation
-    # (including all sensors)
-    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch
-    # (excluding Intel Realsense D435 depth camera and RPLidar)
-    roslaunch jetbot_diff_drive jetbot_rviz_gazebo.launch realsense_enable:=false lidar_enable:=false
+    # 1st terminal - mount only the robot description
+    roslaunch jetbot_description description.launch
+    # 2nd terminal (optional) - get the robot description
+    rosparam get /robot_description
 ~~~
-- Examples above are suposing you want to enable the realsense, but you could enable/disable any sensor.
+- Visualizing only the robot
+- You could enable more parameters if tab is pressed
+~~~
+    # visualize the robot in rviz
+    roslaunch jetbot_viz view_model.launch
+    # example... visualize the robot in rviz and disable intel realsense
+    roslaunch jetbot_viz view_model.launch realsense_enable:=false
+~~~
+- For just view gazebo simulation (no control)
+- There are more parameters for enabling sensors
+- Press tab if you want to see all parameters list
+- Basic spawning of the robot
+~~~
+    # spawn jetbot model in gazebo in turtlebot3_world
+    roslaunch jetbot_gazebo spawn_jetbot.launch
+    # example... spawn jetbot model in gazebo, other world
+    roslaunch jetbot_gazebo spawn_jetbot.launch world_name:=<your_world>
+~~~
+- For controlling the jetbot in gazebo and visualize in rviz
+~~~
+    # launch the jetbot to control it in gazebo and visualize in rviz simultaneously
+    roslaunch jetbot_control control.launch
+    # OR
+    # Same as above but with multiple terminals (4 terminals to launch)
+    roslaunch jetbot_gazebo spawn_jetbot.launch
+    roslaunch jetbot_viz view_model.launch
+    roslaunch jetbot_control jetbot_controller_manager.launch
+    roslaunch jetbot_rqt_robot_steering.launch
+
+Finally, control the robot with the rqt steering controller
+~~~
+- For robot navigation (it is not fine tuned at this checkpoint):
+~~~
+    # 1st terminal, launch gazebo
+    roslaunch jetbot_gazebo spawn_jetbot.launch
+    # 2nd terminal, launch navigation node (dynamic window approach planner)
+    # <option> = teb or dwa
+    roslaunch jetbot_navigation jetbot_navigation.launch local_planner:=<option>
+~~~
+- You could enable/disable any sensor in the launch file.
 - You must see that `roscore` and all configurations loading succesfully.
-- When everything ends, you must see gazebo and rviz loaded and the jetbot displaying a coke can in rviz and also with the intel D435 camera in front (if you enabled it, by default is enabled and also the point cloud).  Also you will see the RPLidar too over the boards.
 
 <p align="center">
 <img src = "doc/imgs/jetbot_sonar.PNG?raw=true" width="55%"/>
@@ -122,11 +145,13 @@ You could see the results on this youtube video.
 
 <p align="center">
 
-Last video update - Odometry Plugin:
+Last video update - Navigation Stack with DWA and TEB Planners - not fine tuned:
 
-[<img src= "https://img.youtube.com/vi/sNLS_3OvJwk/0.jpg" />](https://youtu.be/sNLS_3OvJwk)
+[<img src= "https://img.youtube.com/vi/LzdAojxavZA/0.jpg" />](https://youtu.be/LzdAojxavZA)
 
 Previous videos list:
+
+[Odometry Plugin](https://img.youtube.com/vi/sNLS_3OvJwk/0.jpg)
 
 [Sonar Plugin](https://youtu.be/i4P4bskNwc0)
 
@@ -152,11 +177,13 @@ I will try my best for making an explanatory video of the application as in this
 
 <p align="center">
 
-Las video Update - Odometry Plugin:
+Last video update - Navigation Stack with DWA and TEB Planners - not fine tuned:
 
-[<img src= "https://img.youtube.com/vi/_WPTCEUSzjw/0.jpg" />](https://youtu.be/_WPTCEUSzjw)
+[<img src= "https://img.youtube.com/vi/8x3wWBDikDQ/0.jpg" />](https://youtu.be/8x3wWBDikDQ)
 
 Previous videos list:
+
+[Explaining Odometry Plugin](https://img.youtube.com/vi/_WPTCEUSzjw/0.jpg)
 
 [Explaining Sonar Plugin](https://youtu.be/_ZegRN1EfLw)
 
@@ -179,7 +206,10 @@ Previous videos list:
 <details open>
 <summary> <b>Issues<b></summary>
 
-- For some reason odometry plugin by p3d of libhector always read (in my case) *frame id* and *child* as *odom* the next plan is to make a simple node package to get the transformation between the *base_link* and *base_footprint* to get the transform and publish in a topic.
+- URDF need some modification, if you disable the link of imu, gps will not link and will cause an error.
+- Always leave to true both, *imu_enable* and *gps_enable*. I will fix that later
+- Planners are not fine tunned and sometimes will cause the bot to go back and forth.
+- For some reason odometry plugin by p3d of libhector always read (in my case) frame id and child as odom the next plan is to make a simple node package to get the transformation between the base_link and base_footprint to get the transform and publish in a topic.
 
 </details>
 
@@ -188,14 +218,15 @@ Previous videos list:
 
 Planning to add to this project:
 - :x: Probably i will add effort controllers
-- :x: Navigation capabilities
+- :heavy_check_mark: Navigation capabilities
+- :x: Navigation fine tunning
 - :heavy_check_mark: Computer Vision capabilities
 - :x: OpenVINO as an inference engine for future deep learning based projects
 
 </details>
 
 <details open>
-<summary> <b>Contributiong<b></summary>
+<summary> <b>Contributing<b></summary>
 
 Your contributions are always welcome! Please feel free to fork and modify the content but remember to finally do a pull request.
 
