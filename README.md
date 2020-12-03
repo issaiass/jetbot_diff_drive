@@ -73,7 +73,7 @@ NOTE:  By default, all sensors are visually enabled.
 - Clone this repo in the `~/catkin_ws/src` folder by typing:
 ~~~ 
     cd ~/catkin_ws/src
-    git clone https://github.com/issaiass/jetbot_diff_drive
+    git clone https://github.com/issaiass/jetbot_diff_drive --recursive
     git clone https://github.com/issaiass/realsense_gazebo_plugin
     git clone https://github.com/issaiass/hector_gazebo_plugins
     cd ..
