@@ -28,3 +28,6 @@
 [submodule "jetbot_viz"]
 	path = jetbot_viz
 	url = https://github.com/issaiass/jetbot_viz.git
+[submodule "jetbot_slam"]
+	path = jetbot_slam
+	url = https://github.com/issaiass/jetbot_slam
