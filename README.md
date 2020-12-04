@@ -184,7 +184,7 @@ Previous videos list:
 
 [RPLidar](https://youtu.be/7OaHnLxGrJw)
 
-[Realsense and PLC Demo in gazebo and rviz](https://youtu.be/gretCaS2RlM)
+[Realsense and PCL Demo in gazebo and rviz](https://youtu.be/gretCaS2RlM)
 
 [ROS Controllers and Camera Plugin in gazebo and rviz](https://youtu.be/_K5SHJLf5_0)
 </p>
