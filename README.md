@@ -9,7 +9,7 @@ For the previous version files, download this repo and inside the folder do ***g
 
 This project includes all necessary files reproduce a simulation of the waveshare Jetbot AI Kit model in rviz and gazebo to visualize the camera, control and navigate the differential drive robot.
 
-I based the structure of this repository using [husky](https://github.com/husky/husky) and [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) repos. 
+I based the structure of this repository using [husky](https://github.com/husky/husky), [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) and [Raymon Wijnands](https://github.com/Rayman/turtlebot3_mbf) for move_base_flex repos mainly.  Other repositories like Intel and PAL Robotics are mentioned below. 
 
 Several sensors are included in the simulation like:
 - 1 x RGB Camera
@@ -20,7 +20,7 @@ Several sensors are included in the simulation like:
 - 1 x IMU
 - 1 x Odometry (see issues at the end of the document)
 
-All sensors excluding the camera could be enabled or disabled visually.
+All sensors excluding the jetbot camera could be enabled or disabled visually.
 
 NOTE:  
 - For the realsense you will need to make the plugin first that is included [here](https://github.com/issaiass/realsense_gazebo_plugin)
@@ -32,10 +32,11 @@ The robot is a WaveShare Jetbot AI Kit and its main goal is navigation.
 Below a few image examples of the outcome.
 
 <p align="center">
+<img src = "doc/imgs/jetbot_slam.PNG?raw=true" width="65%"/>
 <img src = "doc/imgs/navigation.PNG?raw=true" width="55%"/>
 <img src = "doc/imgs/jetbot_collage.PNG?raw=true" width="45%"/>
 <img src = "doc/imgs/rviz_orbit.PNG?raw=true" width="35%"/>
-<img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="75%"/>
+<img src = "doc/imgs/jetbot_pointcloud.PNG?raw=true" width="65%"/>
 </p>
 
 The project tree:
@@ -122,10 +123,28 @@ Finally, control the robot with the rqt steering controller
 ~~~
     # 1st terminal, launch gazebo
     roslaunch jetbot_gazebo spawn_jetbot.launch
-    # 2nd terminal, launch navigation node (dynamic window approach planner)
+    # 2nd terminal, launch navigation node (dynamic window approach or time elastic band)
     # <option> = teb or dwa
     roslaunch jetbot_navigation jetbot_navigation.launch local_planner:=<option>
+    # 2nd terminal, or launch navigation node (dynamic window approach only)
+    # <option> = 0 or 1, 0 = move_base 1 = move_base_flex
+    # Let's say we want move_base_flex, then the argument is 1
+    roslaunch jetbot_navigation jetbot_navigation.launch move_base_flex:=<option>
 ~~~
+- For robot slam:
+~~~
+    # 1st terminal, launch gazebo
+    roslaunch jetbot_gazebo spawn_jetbot.launch
+    # 2nd terminal, launch slam node (currently gmapping only)
+    roslaunch jetbot_navigation jetbot_slam.launch
+    # 3rd terminal, launch a controller (option 1)
+    roslaunch jetbot_control jetbot_rqt_control_steering.launch
+    # 3rd terminal, launch a controller (option 2)
+    rosrun jetbot_twist_keyboard teleop_twist_keyboard.py
+    # 4rt terminal, save the map when finished
+    rosrun map_server map_saver -f <path_and_name_of_map>
+~~~
+
 - You could enable/disable any sensor in the launch file.
 - You must see that `roscore` and all configurations loading succesfully.
 
@@ -145,13 +164,17 @@ You could see the results on this youtube video.
 
 <p align="center">
 
-Last video update - Navigation Stack with DWA and TEB Planners - not fine tuned:
+Last video update - Jetbot AI Kit move_base_flex and dwa planner:
 
-[<img src= "https://img.youtube.com/vi/LzdAojxavZA/0.jpg" />](https://youtu.be/LzdAojxavZA)
+[<img src= "https://img.youtube.com/vi/QO-fd8mBA7Y/0.jpg" />](https://youtu.be/QO-fd8mBA7Y)
 
 Previous videos list:
 
-[Odometry Plugin](https://img.youtube.com/vi/sNLS_3OvJwk/0.jpg)
+[SLAM using gmappig](https://youtu.be/SPDjOSCkUKk)
+
+[Navigation Stack with DWA and TEB Planners](https://youtu.be/LzdAojxavZA)
+
+[Odometry Plugin](https://youtu.be/sNLS_3OvJwk)
 
 [Sonar Plugin](https://youtu.be/i4P4bskNwc0)
 
@@ -177,13 +200,17 @@ I will try my best for making an explanatory video of the application as in this
 
 <p align="center">
 
-Last video update - Navigation Stack with DWA and TEB Planners - not fine tuned:
+Last video update - Explaining Jetbot AI Kit move_base_flex and dwa planner:
 
-[<img src= "https://img.youtube.com/vi/8x3wWBDikDQ/0.jpg" />](https://youtu.be/8x3wWBDikDQ)
+[<img src= "https://img.youtube.com/vi/eZiigHFUuW4/0.jpg" />](https://youtu.be/eZiigHFUuW4)
 
 Previous videos list:
 
-[Explaining Odometry Plugin](https://img.youtube.com/vi/_WPTCEUSzjw/0.jpg)
+[Explaining Jetbot AI Kit gmapping SLAM](https://youtu.be/2310IhapE4I)
+
+[Explaining Navigation Stack with DWA and TEB Planners](https://youtu.be/8x3wWBDikDQ)
+
+[Explaining Odometry Plugin](https://youtu.be/_WPTCEUSzjw)
 
 [Explaining Sonar Plugin](https://youtu.be/_ZegRN1EfLw)
 
@@ -206,6 +233,7 @@ Previous videos list:
 <details open>
 <summary> <b>Issues<b></summary>
 
+- When the navigation stack is running, in some point the map is not aligned with the laser scan, we have to test more if is the AMCL or other map parameters related to local planning.
 - URDF need some modification, if you disable the link of imu, gps will not link and will cause an error.
 - Always leave to true both, *imu_enable* and *gps_enable*. I will fix that later
 - Planners are not fine tunned and sometimes will cause the bot to go back and forth.
