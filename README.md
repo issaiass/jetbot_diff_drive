@@ -9,7 +9,7 @@ For the previous version files, download this repo and inside the folder do ***g
 
 This project includes all necessary files reproduce a simulation of the waveshare Jetbot AI Kit model in rviz and gazebo to visualize the camera, control and navigate the differential drive robot.
 
-At this point we have several algorithms for SLAM and Navigation that you will explore below.
+At this point we have several algorithms for SLAM and Navigation that you will explore below like gmapping, karto, hector.
 
 I based the structure of this repository using [husky](https://github.com/husky/husky), [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) and [Raymon Wijnands](https://github.com/Rayman/turtlebot3_mbf) for move_base_flex repos mainly.  Other repositories like Intel and PAL Robotics are mentioned below. 
 
@@ -138,7 +138,7 @@ Finally, control the robot with the rqt steering controller
     # 1st terminal, launch gazebo
     roslaunch jetbot_gazebo spawn_jetbot.launch
     # 2nd terminal, launch slam node
-    # <option>: gmapping or hector
+    # <option>: gmapping, hector or karto
     roslaunch jetbot_navigation jetbot_slam.launch slam_methods:=<option>
     # 3rd terminal, launch a controller (option 1)
     roslaunch jetbot_control jetbot_rqt_control_steering.launch
@@ -167,11 +167,12 @@ You could see the results on this youtube video.
 
 <p align="center">
 
-Last video update - Jetbot AI Kit Hector SLAM:
+Last video update - Jetbot AI Kit Karto SLAM:
 
-[<img src= "https://img.youtube.com/vi/CwRlcWulk-U/0.jpg" />](https://youtu.be/CwRlcWulk-U)
-
+[<img src= "https://img.youtube.com/vi/mfwHnU6L_1w/0.jpg" />](https://youtu.be/mfwHnU6L_1w)
 Previous videos list:
+
+[Jetbot AI Kit Hector SLAM](https://youtu.be/CwRlcWulk-U)
 
 [Jetbot AI Kit move_base_flex and dwa planner](https://youtu.be/QO-fd8mBA7Y)
 
@@ -205,11 +206,13 @@ I will try my best for making an explanatory video of the application as in this
 
 <p align="center">
 
-Last video update - Explaining Jetbot AI Kit Hector SLAM:
+Last video update - Explaining Jetbot AI Kit Karto SLAM:
 
-[<img src= "https://img.youtube.com/vi/Noo3RmavB6I/0.jpg" />](https://youtu.be/Noo3RmavB6I)
+[<img src= "https://img.youtube.com/vi/qCG6OCJUb9s/0.jpg" />](https://youtu.be/qCG6OCJUb9s)
 
 Previous videos list:
+
+[Explaining Jetbot AI Kit Hector SLAM](https://youtu.be/Noo3RmavB6I)
 
 [Explaining Jetbot AI Kit move_base_flex and dwa planner](https://youtu.be/eZiigHFUuW4)
 
@@ -248,6 +251,7 @@ Previous videos list:
 - Planners are not fine tunned and sometimes will cause the bot to go back and forth.
 - For some reason odometry plugin by p3d of libhector always read (in my case) frame id and child as odom the next plan is to make a simple node package to get the transformation between the base_link and base_footprint to get the transform and publish in a topic.
 - Cartographer is not working, does not publish submap_list
+- hdl_graph_slam maps realsense pointclouds, but position of the robot is odd, we are inspecting the input values to the tf transform inside the hdl_graph_slam configuration
 
 </details>
 
